@@ -1,5 +1,15 @@
 # Asset Selection
 
+## V0.3 Storyboard SVG References
+
+Original folder: `../Reference Documents/ANT-TP-Slide1`
+
+Files inspected: `1.svg`, `2.svg`, `3.svg`, `4.svg`, `5.svg`, `6.svg`
+
+Reason: These six SVGs were used as sequential storyboard references for the continuous tea journey. They were not copied into the app because they are heavy exported SVGs with embedded raster data and path-converted text. The implementation recreates the reusable leaf, origin paths, storage tin, brewing vessel, steam, and lounge reveal as lightweight HTML/CSS/SVG layers.
+
+Reference files modified: no.
+
 ## Shelf Reveal
 
 Original: `../Reference Photos/WhatsApp Image 2026-08-25 at 2.26.23 PM.jpeg`

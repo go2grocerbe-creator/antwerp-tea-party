@@ -124,6 +124,20 @@ button:focus-visible {
   position: relative;
 }
 
+.origin-journey__stage::before {
+  border: 1px solid rgba(1, 66, 53, 0.1);
+  content: "";
+  height: min(72vh, 620px);
+  left: 50%;
+  opacity: 0.55;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  width: min(72vw, 760px);
+  z-index: 1;
+}
+
 .origin-title {
   left: 50%;
   max-width: min(520px, calc(100vw - 36px));
@@ -132,6 +146,30 @@ button:focus-visible {
   top: 16vh;
   transform: translateX(-50%);
   z-index: 7;
+}
+
+.leaf-field {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 8;
+}
+
+.journey-leaf {
+  filter: drop-shadow(0 18px 22px rgba(1, 66, 53, 0.18));
+  height: clamp(142px, 19vw, 250px);
+  left: calc(50% - clamp(71px, 9.5vw, 125px));
+  position: absolute;
+  top: calc(50% - clamp(71px, 9.5vw, 125px));
+  transform-origin: 50% 82%;
+  width: auto;
+  z-index: 9;
+}
+
+.leaf-b,
+.leaf-d,
+.leaf-f {
+  opacity: 0.82;
 }
 
 .origin-title h1,
@@ -165,11 +203,35 @@ button:focus-visible {
   z-index: 8;
 }
 
-.origin-orbit {
+.origin-orbit,
+.origin-map {
   inset: 0;
   pointer-events: none;
   position: absolute;
   z-index: 6;
+}
+
+.origin-map {
+  z-index: 7;
+}
+
+.origin-paths {
+  height: min(76vh, 620px);
+  left: 50%;
+  overflow: visible;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(88vw, 920px);
+}
+
+.origin-path {
+  fill: none;
+  stroke: rgba(164, 95, 83, 0.38);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  stroke-linecap: round;
+  stroke-width: 0.45;
 }
 
 .origin-label {
@@ -193,32 +255,32 @@ button:focus-visible {
 }
 
 .origin-one {
-  left: calc(50% - 88px);
-  top: 24vh;
+  left: 22vw;
+  top: 20vh;
 }
 
 .origin-two {
-  left: 24vw;
-  top: 34vh;
+  right: 22vw;
+  top: 22vh;
 }
 
 .origin-three {
-  left: 20vw;
-  top: 62vh;
-}
-
-.origin-four {
-  right: 25vw;
-  top: 36vh;
-}
-
-.origin-five {
-  right: 20vw;
+  left: 16vw;
   top: 63vh;
 }
 
+.origin-four {
+  right: 15vw;
+  top: 60vh;
+}
+
+.origin-five {
+  left: 32vw;
+  bottom: 12vh;
+}
+
 .origin-six {
-  left: calc(50% - 64px);
+  right: 31vw;
   bottom: 14vh;
 }
 
@@ -233,6 +295,17 @@ button:focus-visible {
   position: absolute;
   width: var(--tin-width);
   z-index: 9;
+}
+
+.storage-tin {
+  z-index: 10;
+}
+
+.selection-tin {
+  --tin-width: clamp(210px, 22vw, 320px);
+
+  bottom: 22vh;
+  z-index: 11;
 }
 
 .tin-back-rim,
@@ -398,6 +471,186 @@ button:focus-visible {
 
 .shelf-copy p {
   color: rgba(255, 255, 255, 0.82);
+}
+
+.brewing-layer,
+.lounge-layer {
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+}
+
+.brewing-layer {
+  align-items: center;
+  background:
+    radial-gradient(circle at 60% 58%, rgba(209, 171, 133, 0.25), transparent 30%),
+    linear-gradient(135deg, #f5eadc, #efe0cf 48%, #f8f2e9);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.7fr);
+  padding: clamp(70px, 9vw, 126px) clamp(18px, 7vw, 96px);
+  z-index: 12;
+}
+
+.brew-visual {
+  aspect-ratio: 1.15 / 1;
+  margin-inline: auto;
+  max-width: 680px;
+  position: relative;
+  width: min(62vw, 680px);
+}
+
+.kettle {
+  height: 56%;
+  left: 13%;
+  position: absolute;
+  top: 25%;
+  width: 54%;
+}
+
+.kettle-body {
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.42), transparent 28%),
+    linear-gradient(180deg, #ded3c2, #b9aa96);
+  border: 1px solid rgba(31, 26, 22, 0.18);
+  border-radius: 48% 48% 42% 42%;
+  box-shadow: 0 28px 54px rgba(31, 26, 22, 0.18);
+  inset: 18% 12% 0;
+  position: absolute;
+}
+
+.kettle-handle {
+  border: clamp(8px, 1.4vw, 14px) solid rgba(1, 66, 53, 0.72);
+  border-bottom-color: transparent;
+  border-radius: 50% 50% 42% 42%;
+  height: 55%;
+  left: 16%;
+  position: absolute;
+  top: 0;
+  width: 48%;
+}
+
+.kettle-spout {
+  border-bottom: clamp(18px, 3vw, 36px) solid transparent;
+  border-left: clamp(74px, 10vw, 124px) solid #b9aa96;
+  border-top: clamp(18px, 3vw, 36px) solid transparent;
+  height: 0;
+  left: 67%;
+  position: absolute;
+  top: 42%;
+  transform: rotate(-14deg);
+  width: 0;
+}
+
+.cup {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.12)),
+    #f7f0e7;
+  border: 1px solid rgba(31, 26, 22, 0.16);
+  border-radius: 0 0 45% 45% / 0 0 30% 30%;
+  bottom: 8%;
+  box-shadow: 0 20px 42px rgba(31, 26, 22, 0.13);
+  height: 24%;
+  left: 55%;
+  position: absolute;
+  width: 26%;
+}
+
+.cup::before {
+  background: radial-gradient(ellipse, #8d5a38 0 58%, rgba(141, 90, 56, 0) 60%);
+  border: 1px solid rgba(31, 26, 22, 0.12);
+  border-radius: 50%;
+  content: "";
+  height: 28%;
+  left: 3%;
+  position: absolute;
+  top: -13%;
+  width: 94%;
+}
+
+.cup::after {
+  border: 8px solid #f7f0e7;
+  border-left: 0;
+  border-radius: 0 50% 50% 0;
+  content: "";
+  height: 42%;
+  position: absolute;
+  right: -20%;
+  top: 24%;
+  width: 22%;
+}
+
+.brew-leaf {
+  height: clamp(74px, 10vw, 116px);
+  left: 55%;
+  position: absolute;
+  top: 30%;
+  width: auto;
+  z-index: 3;
+}
+
+.steam {
+  height: 54%;
+  left: 48%;
+  overflow: visible;
+  position: absolute;
+  top: 4%;
+  width: 34%;
+  z-index: 4;
+}
+
+.steam-line {
+  fill: none;
+  stroke: rgba(1, 66, 53, 0.34);
+  stroke-linecap: round;
+  stroke-width: 5;
+}
+
+.brewing-copy {
+  left: auto;
+  max-width: 420px;
+  position: relative;
+  right: auto;
+  text-align: left;
+  top: auto;
+}
+
+.lounge-layer {
+  overflow: hidden;
+  z-index: 14;
+}
+
+.lounge-layer::after {
+  background:
+    linear-gradient(90deg, rgba(31, 26, 22, 0.74) 0%, rgba(31, 26, 22, 0.32) 38%, rgba(31, 26, 22, 0) 70%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.24), transparent 62%);
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.lounge-copy {
+  bottom: clamp(56px, 10vh, 120px);
+  color: var(--white);
+  left: clamp(18px, 7vw, 96px);
+  max-width: 720px;
+  position: absolute;
+  z-index: 2;
+}
+
+.lounge-copy h2 {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3.2rem, 8vw, 8rem);
+  font-weight: 500;
+  line-height: 0.95;
+  margin: 0;
+}
+
+.lounge-copy p:not(.eyebrow) {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: clamp(1rem, 1.45vw, 1.24rem);
+  line-height: 1.7;
+  margin: 24px 0 0;
 }
 
 .button {
@@ -698,6 +951,17 @@ address strong {
     font-size: 0.95rem;
   }
 
+  .journey-leaf {
+    height: 132px;
+    left: calc(50% - 66px);
+    top: calc(50% - 76px);
+  }
+
+  .origin-paths {
+    height: 58vh;
+    width: 92vw;
+  }
+
   .origin-one,
   .origin-three,
   .origin-five {
@@ -726,6 +990,8 @@ address strong {
   }
 
   .tin-scene {
+    --tin-width: clamp(210px, 58vw, 290px);
+
     bottom: 8vh;
   }
 
@@ -740,6 +1006,21 @@ address strong {
     left: 18px;
     right: 18px;
     top: 52vh;
+  }
+
+  .brewing-layer {
+    align-content: center;
+    grid-template-columns: 1fr;
+    padding: 86px 18px 58px;
+  }
+
+  .brew-visual {
+    width: min(92vw, 420px);
+  }
+
+  .brewing-copy {
+    margin: -24px auto 0;
+    text-align: center;
   }
 
   .shop-story,
@@ -793,14 +1074,11 @@ address strong {
     padding-top: 0;
   }
 
-  .tin-label {
-    width: 68%;
-  }
-
   .shop-story h2,
   .expertise h2,
   .tea-table h2,
-  .site-footer h2 {
+  .site-footer h2,
+  .lounge-copy h2 {
     font-size: clamp(2.8rem, 13vw, 4.2rem);
   }
 
@@ -810,6 +1088,12 @@ address strong {
 
   .tea-table {
     min-height: 82vh;
+  }
+
+  .lounge-copy {
+    bottom: 54px;
+    left: 18px;
+    right: 18px;
   }
 }
 
@@ -834,9 +1118,13 @@ address strong {
   }
 
   .origin-title,
+  .leaf-field,
+  .origin-map,
   .tin-scene,
   .story-copy,
-  .shelf-reveal {
+  .shelf-reveal,
+  .brewing-layer,
+  .lounge-layer {
     position: relative;
     transform: none;
   }
@@ -847,12 +1135,50 @@ address strong {
     inset: auto;
   }
 
-  .origin-orbit {
+  .leaf-field {
+    height: 250px;
+    width: min(460px, 100%);
+  }
+
+  .journey-leaf {
+    height: 118px;
+    left: 50%;
+    opacity: 1;
+    top: 50%;
+  }
+
+  .leaf-a {
+    transform: translate(-120%, -60%) rotate(-18deg);
+  }
+
+  .leaf-b {
+    transform: translate(20%, -70%) rotate(14deg);
+  }
+
+  .leaf-c {
+    transform: translate(-100%, 35%) rotate(20deg);
+  }
+
+  .leaf-d {
+    transform: translate(18%, 36%) rotate(-22deg);
+  }
+
+  .leaf-e,
+  .leaf-f {
+    display: none;
+  }
+
+  .origin-orbit,
+  .origin-map {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
     position: relative;
+  }
+
+  .origin-paths {
+    display: none;
   }
 
   .origin-label {
@@ -861,6 +1187,17 @@ address strong {
 
   .shelf-reveal {
     aspect-ratio: 4 / 5;
+    width: min(900px, 100%);
+  }
+
+  .brewing-layer {
+    grid-template-columns: 1fr;
+    width: min(900px, 100%);
+  }
+
+  .lounge-layer {
+    aspect-ratio: 4 / 5;
+    min-height: 520px;
     width: min(900px, 100%);
   }
 }
