@@ -7,7 +7,7 @@ export function ExpertiseSection() {
       <div className="expertise__copy">
         <p className="eyebrow">Knowledge</p>
         <h2 id="expertise-title">Tea chosen with knowledge.</h2>
-        {/* TODO: Future asset: photograph owner selecting/handling/explaining tea to communicate expertise. */}
+        {/* TODO: replace with owner-selecting-tea photography when available. */}
         <p>
           A good tea shop is not only about selection. It is about helping someone
           discover what suits them.
@@ -16,16 +16,16 @@ export function ExpertiseSection() {
       <div className="detail-grid" aria-label="Shop details">
         <figure>
           <Image
-            src={homeAssets.porcelain.src}
-            alt={homeAssets.porcelain.alt}
+            src={homeAssets.shelfAngle.src}
+            alt={homeAssets.shelfAngle.alt}
             fill
             sizes="(max-width: 768px) 50vw, 24vw"
           />
         </figure>
         <figure>
           <Image
-            src={homeAssets.teapot.src}
-            alt={homeAssets.teapot.alt}
+            src={homeAssets.blackTin.src}
+            alt={homeAssets.blackTin.alt}
             fill
             sizes="(max-width: 768px) 50vw, 24vw"
           />

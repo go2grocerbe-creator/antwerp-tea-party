@@ -203,18 +203,18 @@ button:focus-visible {
   max-width: 430px;
 }
 
-.hero-teapot {
-  aspect-ratio: 600 / 450;
+.hero-cup {
+  aspect-ratio: 432 / 578;
   bottom: clamp(24px, 7vh, 76px);
-  filter: drop-shadow(0 36px 42px rgba(31, 26, 22, 0.19));
+  filter: drop-shadow(0 34px 40px rgba(31, 26, 22, 0.18));
   opacity: 1;
   position: absolute;
-  right: clamp(16px, 8vw, 136px);
-  width: clamp(320px, 41vw, 620px);
+  right: clamp(14px, 9vw, 150px);
+  width: clamp(230px, 32vw, 430px);
   z-index: 10;
 }
 
-.hero-teapot img {
+.hero-cup img {
   object-fit: contain;
 }
 
@@ -465,99 +465,37 @@ button:focus-visible {
   color: rgba(255, 255, 255, 0.82);
 }
 
-.brewing-layer {
-  inset: 0;
+.teapot-layer {
+  aspect-ratio: 600 / 450;
+  bottom: clamp(66px, 13vh, 126px);
+  filter: drop-shadow(0 34px 42px rgba(31, 26, 22, 0.18));
   opacity: 0;
   position: absolute;
-}
-
-.brewing-layer {
-  align-items: center;
-  background:
-    radial-gradient(circle at 30% 36%, rgba(164, 95, 83, 0.13), transparent 32%),
-    linear-gradient(135deg, #f7efe3, #efe0cf 52%, #faf6ec);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.7fr);
-  padding: clamp(70px, 9vw, 126px) clamp(18px, 7vw, 96px);
+  right: clamp(18px, 10vw, 170px);
+  width: clamp(310px, 39vw, 590px);
   z-index: 12;
 }
 
-.brew-visual {
-  aspect-ratio: 1.05 / 1;
-  margin-inline: auto;
-  max-width: 680px;
-  position: relative;
-  width: min(62vw, 680px);
-}
-
-.brew-photo {
-  box-shadow: 0 34px 70px rgba(31, 26, 22, 0.22);
-  inset: 2% 18% 6% 4%;
-  overflow: hidden;
-  position: absolute;
-}
-
-.brew-photo img,
-.brew-detail-photo img {
-  object-fit: cover;
-}
-
-.brew-photo::after {
-  background:
-    linear-gradient(90deg, rgba(1, 66, 53, 0.24), transparent 36%),
-    linear-gradient(180deg, transparent 55%, rgba(31, 26, 22, 0.22));
-  content: "";
+.teapot-layer__image {
   inset: 0;
-  position: absolute;
-}
-
-.brew-detail-photo {
-  border: 8px solid rgba(253, 248, 238, 0.72);
-  box-shadow: 0 24px 50px rgba(31, 26, 22, 0.22);
-  height: 35%;
-  overflow: hidden;
-  position: absolute;
-  right: 2%;
-  top: 58%;
-  transform: rotate(3deg);
-  width: 34%;
-}
-
-.brew-leaf {
-  filter: drop-shadow(0 12px 16px rgba(1, 66, 53, 0.16));
-  height: auto;
-  left: 60%;
   object-fit: contain;
-  position: absolute;
-  top: 18%;
-  width: clamp(112px, 14vw, 172px);
-  z-index: 3;
 }
 
-.steam {
-  height: 58%;
-  left: 40%;
+.teapot-steam {
+  height: 52%;
+  left: 42%;
   overflow: visible;
   position: absolute;
-  top: 0;
-  width: 34%;
-  z-index: 4;
+  top: -30%;
+  width: 30%;
+  z-index: 13;
 }
 
-.steam-line {
+.teapot-steam-line {
   fill: none;
-  stroke: rgba(253, 248, 238, 0.72);
+  stroke: rgba(1, 66, 53, 0.22);
   stroke-linecap: round;
-  stroke-width: 6;
-}
-
-.brewing-copy {
-  left: auto;
-  max-width: 420px;
-  position: relative;
-  right: auto;
-  text-align: left;
-  top: auto;
+  stroke-width: 4;
 }
 
 .button {
@@ -742,12 +680,14 @@ button:focus-visible {
 .three-paths {
   background: var(--paper);
   display: grid;
+  gap: clamp(14px, 1.8vw, 28px);
   grid-template-columns: repeat(3, 1fr);
+  padding: clamp(16px, 2.4vw, 36px);
 }
 
 .path-panel {
   display: grid;
-  min-height: 440px;
+  min-height: clamp(340px, 30vw, 470px);
   overflow: hidden;
   position: relative;
 }
@@ -775,8 +715,8 @@ button:focus-visible {
   align-self: end;
   color: var(--white);
   display: grid;
-  gap: 10px;
-  padding: 28px;
+  gap: 14px;
+  padding: clamp(24px, 2.6vw, 42px);
   position: relative;
   z-index: 2;
 }
@@ -892,10 +832,16 @@ address strong {
     top: calc(50% - 76px);
   }
 
-  .hero-teapot {
+  .hero-cup {
     bottom: 54px;
     right: max(10px, 4vw);
-    width: clamp(260px, 50vw, 430px);
+    width: clamp(210px, 46vw, 330px);
+  }
+
+  .teapot-layer {
+    bottom: 18vh;
+    right: max(18px, 7vw);
+    width: clamp(270px, 50vw, 430px);
   }
 
   .hero-scroll-cue {
@@ -958,21 +904,6 @@ address strong {
     top: 52vh;
   }
 
-  .brewing-layer {
-    align-content: center;
-    grid-template-columns: 1fr;
-    padding: 86px 18px 58px;
-  }
-
-  .brew-visual {
-    width: min(92vw, 420px);
-  }
-
-  .brewing-copy {
-    margin: -24px auto 0;
-    text-align: center;
-  }
-
   .shop-story,
   .expertise {
     grid-template-columns: 1fr;
@@ -1017,7 +948,7 @@ address strong {
   }
 
   .path-panel {
-    min-height: 330px;
+    min-height: 300px;
   }
 }
 
@@ -1044,11 +975,17 @@ address strong {
     max-width: 280px;
   }
 
-  .hero-teapot {
+  .hero-cup {
     bottom: 72px;
     opacity: 0.9;
-    right: -28px;
-    width: clamp(240px, 68vw, 330px);
+    right: -14px;
+    width: clamp(180px, 56vw, 245px);
+  }
+
+  .teapot-layer {
+    bottom: 21vh;
+    right: -18px;
+    width: clamp(230px, 70vw, 320px);
   }
 
   .hero-scroll-cue {
@@ -1113,28 +1050,34 @@ address strong {
 
   .origin-title,
   .leaf-field,
-  .hero-teapot,
+  .hero-cup,
+  .teapot-layer,
   .hero-scroll-cue,
   .origin-map,
   .tin-scene,
   .story-copy,
-  .shelf-reveal,
-  .brewing-layer {
+  .shelf-reveal {
     position: relative;
     transform: none;
   }
 
   .origin-title,
-  .hero-teapot,
+  .hero-cup,
+  .teapot-layer,
   .hero-scroll-cue,
   .tin-copy,
   .shelf-copy {
     inset: auto;
   }
 
-  .hero-teapot {
-    aspect-ratio: 600 / 450;
+  .hero-cup {
+    aspect-ratio: 432 / 578;
     width: min(320px, 76vw);
+  }
+
+  .teapot-layer {
+    aspect-ratio: 600 / 450;
+    width: min(360px, 78vw);
   }
 
   .hero-scroll-cue {
@@ -1193,11 +1136,6 @@ address strong {
 
   .shelf-reveal {
     aspect-ratio: 4 / 5;
-    width: min(900px, 100%);
-  }
-
-  .brewing-layer {
-    grid-template-columns: 1fr;
     width: min(900px, 100%);
   }
 

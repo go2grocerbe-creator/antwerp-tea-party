@@ -4,13 +4,13 @@
 
 Reference: `../Reference Documents/ANT-TP-Slide1/1.svg`
 
-An editorial first frame pairs the headline with the isolated floral teapot asset so the page has a clear focal object immediately. As scrolling begins, the teapot recedes and the isolated single leaf becomes the journey protagonist.
+An editorial first frame pairs the headline with the isolated cup-with-tea-leaves asset so the page has a clear focal object immediately. As scrolling begins, the cup recedes into the next object-led story beat.
 
 ## 02 Origin
 
 Reference: `../Reference Documents/ANT-TP-Slide1/2.svg`
 
-The same isolated leaf instances separate outward toward neutral placeholder origin points. Origin labels are intentionally generic until founder-supplied sourcing data is confirmed in `src/data/origins.ts`.
+The isolated floral teapot appears as the second scene with subtle steam, then the single-leaf instances separate outward toward real location labels from `src/data/origins.ts`: Darjeeling, China, Nepal, India, Bangladesh, and Mozambique.
 
 ## 03 Storage
 
@@ -41,6 +41,6 @@ The pinned journey now hands off to the single illustrated tea-table invitation 
 - Animation method: one GSAP ScrollTrigger timeline inside `src/components/home/OriginJourney.tsx`.
 - GSAP was already installed before V0.3; no new animation dependency was added.
 - V0.4 replaces the temporary leaf SVG, CSS storage tin, and CSS kettle/cup with optimized photographic or botanical assets in `public/tea-journey`.
-- V0.5 integrates the new isolated assets from `Reference Photos/Assets` for the hero teapot, journey leaf, open tin, and invitation chair. The front-view tin remains available in the asset folder but is not rendered over the shelf scene.
+- V0.5 integrates the new isolated assets from `Reference Photos/Assets` for the hero cup, second-scene teapot, journey leaf, open tin, and invitation chair. The front-view tin remains available in the asset folder but is not rendered over the shelf scene.
 - Reduced motion keeps all six chapters readable as static stacked content.
 - The original storyboard SVGs remain read-only and unchanged.

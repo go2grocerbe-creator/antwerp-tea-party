@@ -97,6 +97,18 @@ Usage:
 - `tin-front.png` remains copied for reference but is not rendered in the shelf sequence; the small floating front-tin overlay was removed.
 - `chair-illustration.png` is used as the main visual in the single final tea-table/invitation section.
 
+## V0.5 Targeted Homepage Fix
+
+Reference files modified: no.
+
+Changes:
+
+- Hero visual corrected back to `public/images/assets/cup-three-leaves.png`.
+- The isolated floral teapot now appears in the second story scene via `public/images/assets/floral-teapot.png`, with restrained SVG steam lines.
+- The old photo-card teapot/brewing treatment was removed from the pinned journey.
+- The top-view open tin remains the only tin rendered in the journey; the front-view tin is not placed over the shelf.
+- The knowledge section imagery now uses `public/images/tea-wall-silver-tins-angle.jpg` and `public/images/black-tea-tin-detail.jpg` to better support curation, selection, and tea expertise.
+
 ## Shelf Reveal
 
 Original: `../Reference Photos/WhatsApp Image 2026-08-25 at 2.26.23 PM.jpeg`
