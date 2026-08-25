@@ -11,6 +11,9 @@ export function TeaTableSection() {
         fill
         sizes="100vw"
       />
+      <div className="tea-table__chair" aria-hidden="true">
+        <Image src={homeAssets.isolatedChair.src} alt="" fill sizes="(max-width: 768px) 78vw, 34vw" />
+      </div>
       <div className="tea-table__copy">
         <p className="eyebrow">The table</p>
         <h2 id="tea-table-title">Some teas are better shared.</h2>

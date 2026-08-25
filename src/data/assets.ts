@@ -75,4 +75,24 @@ export const homeAssets = {
     src: "/tea-journey/lounge/lounge-chairs-warm.webp",
     alt: "Warm leather chairs and a small table inside The Antwerp Tea Party.",
   },
+  isolatedCupLeaves: {
+    src: "/images/assets/cup-three-leaves.png",
+    alt: "A teacup with three green leaves rising from it.",
+  },
+  isolatedSingleLeaf: {
+    src: "/images/assets/single-leaf.png",
+    alt: "",
+  },
+  isolatedTinOpen: {
+    src: "/images/assets/tin-open-lid.png",
+    alt: "An open black tea tin viewed from above.",
+  },
+  isolatedTinFront: {
+    src: "/images/assets/tin-front.png",
+    alt: "A black tea tin front view.",
+  },
+  isolatedChair: {
+    src: "/images/assets/chair-illustration.png",
+    alt: "A warm lounge chair illustration for tea tastings.",
+  },
 };

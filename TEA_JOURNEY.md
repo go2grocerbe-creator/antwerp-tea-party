@@ -4,19 +4,19 @@
 
 Reference: `../Reference Documents/ANT-TP-Slide1/1.svg`
 
-Reusable botanical leaf instances establish the story. The large shop-name hero remains absent; the permanent header carries the brand.
+An editorial first frame pairs the headline with the isolated cup-and-three-leaves asset so the page has a clear focal object immediately. As scrolling begins, the cup recedes and the isolated single leaf becomes the journey protagonist.
 
 ## 02 Origin
 
 Reference: `../Reference Documents/ANT-TP-Slide1/2.svg`
 
-The same leaves separate outward toward neutral placeholder origin points. Origin labels are intentionally generic until founder-supplied sourcing data is confirmed in `src/data/origins.ts`.
+The same isolated leaf instances separate outward toward neutral placeholder origin points. Origin labels are intentionally generic until founder-supplied sourcing data is confirmed in `src/data/origins.ts`.
 
 ## 03 Storage
 
 Reference: `../Reference Documents/ANT-TP-Slide1/3.svg`
 
-Leaves gather downward into an actual black tea tin cutout derived from shop photography. This preserves the selected-storage beat without relying on the V0.3 CSS cylinder.
+Leaves gather downward into the isolated open-lid black tin asset. The tin sits over the leaves so they visibly disappear into the opening.
 
 ## 04 Collection
 
@@ -41,5 +41,6 @@ Steam lifts into the warm chair/lounge photograph. The final copy resolves the a
 - Animation method: one GSAP ScrollTrigger timeline inside `src/components/home/OriginJourney.tsx`.
 - GSAP was already installed before V0.3; no new animation dependency was added.
 - V0.4 replaces the temporary leaf SVG, CSS storage tin, and CSS kettle/cup with optimized photographic or botanical assets in `public/tea-journey`.
+- V0.5 integrates the new isolated assets from `Reference Photos/Assets` for the hero cup, journey leaf, open tin, front tin, and invitation chair.
 - Reduced motion keeps all six chapters readable as static stacked content.
 - The original storyboard SVGs remain read-only and unchanged.

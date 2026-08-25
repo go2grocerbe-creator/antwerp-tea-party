@@ -11,12 +11,12 @@ import { site } from "@/data/site";
 gsap.registerPlugin(ScrollTrigger);
 
 const leaves = [
-  { className: "leaf-a", src: homeAssets.journeyLeafA.src },
-  { className: "leaf-b", src: homeAssets.journeyLeafB.src },
-  { className: "leaf-c", src: homeAssets.journeyLeafC.src },
-  { className: "leaf-d", src: homeAssets.journeyLeafA.src },
-  { className: "leaf-e", src: homeAssets.journeyLeafB.src },
-  { className: "leaf-f", src: homeAssets.journeyLeafC.src },
+  { className: "leaf-a", src: homeAssets.isolatedSingleLeaf.src },
+  { className: "leaf-b", src: homeAssets.isolatedSingleLeaf.src },
+  { className: "leaf-c", src: homeAssets.isolatedSingleLeaf.src },
+  { className: "leaf-d", src: homeAssets.isolatedSingleLeaf.src },
+  { className: "leaf-e", src: homeAssets.isolatedSingleLeaf.src },
+  { className: "leaf-f", src: homeAssets.isolatedSingleLeaf.src },
 ];
 
 function JourneyLeaf({ className, src }: { className: string; src: string }) {
@@ -33,10 +33,17 @@ function JourneyLeaf({ className, src }: { className: string; src: string }) {
 }
 
 function TinCanister({ className = "" }: { className?: string }) {
+  const isOpenTin = className.includes("storage-tin");
+
   return (
-    <div className={`tin-scene tin-photo ${className}`} aria-hidden="true">
-      <Image src={homeAssets.journeyStorageTin.src} alt="" fill sizes="(max-width: 768px) 58vw, 31vw" />
-      <span className="tin-photo-rim" />
+    <div className={`tin-scene tin-photo ${isOpenTin ? "tin-photo--open" : "tin-photo--front"} ${className}`} aria-hidden="true">
+      <Image
+        src={isOpenTin ? homeAssets.isolatedTinOpen.src : homeAssets.isolatedTinFront.src}
+        alt=""
+        fill
+        sizes="(max-width: 768px) 58vw, 31vw"
+      />
+      {isOpenTin ? <span className="tin-opening-mask" /> : <span className="tin-photo-rim" />}
     </div>
   );
 }
@@ -63,6 +70,8 @@ export function OriginJourney() {
           ".shelf-copy",
           ".brewing-layer",
           ".lounge-layer",
+          ".hero-cup",
+          ".hero-scroll-cue",
           ".journey-leaf",
         ],
         { autoAlpha: 1 },
@@ -94,17 +103,19 @@ export function OriginJourney() {
         });
 
         timeline
-          .fromTo(journeyLeaves, { autoAlpha: 0, scale: 0.78, rotate: -8 }, { autoAlpha: 1, scale: 1, rotate: 0, stagger: 0.035, duration: 0.08 })
-          .fromTo(".origin-title", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 0)
-          .to(".leaf-a", { x: -72, y: -38, rotate: -18, scale: 0.9, duration: 0.14 }, 0.06)
-          .to(".leaf-b", { x: 88, y: -24, rotate: 16, scale: 0.82, duration: 0.14 }, 0.06)
-          .to(".leaf-c", { x: -96, y: 62, rotate: 22, scale: 0.78, duration: 0.14 }, 0.06)
-          .to(".leaf-d", { x: 116, y: 70, rotate: -24, scale: 0.86, duration: 0.14 }, 0.06)
-          .to(".leaf-e", { x: -12, y: 118, rotate: 10, scale: 0.72, duration: 0.14 }, 0.06)
-          .to(".leaf-f", { x: 12, y: -112, rotate: -8, scale: 0.76, duration: 0.14 }, 0.06)
+          .fromTo(".hero-cup", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -10, scale: 1.02, duration: 0.1 }, 0)
+          .fromTo(journeyLeaves, { autoAlpha: 0, scale: 0.58, rotate: -8 }, { autoAlpha: 1, scale: 0.82, rotate: 0, stagger: 0.035, duration: 0.08 }, 0.08)
+          .to(".hero-scroll-cue", { autoAlpha: 0, y: 18, duration: 0.08 }, 0.08)
+          .to(".hero-cup", { autoAlpha: 0, y: -70, scale: 0.86, duration: 0.12 }, 0.12)
+          .to(".leaf-a", { x: -72, y: -38, rotate: -18, scale: 0.9, duration: 0.14 }, 0.1)
+          .to(".leaf-b", { x: 88, y: -24, rotate: 16, scale: 0.82, duration: 0.14 }, 0.1)
+          .to(".leaf-c", { x: -96, y: 62, rotate: 22, scale: 0.78, duration: 0.14 }, 0.1)
+          .to(".leaf-d", { x: 116, y: 70, rotate: -24, scale: 0.86, duration: 0.14 }, 0.1)
+          .to(".leaf-e", { x: -12, y: 118, rotate: 10, scale: 0.72, duration: 0.14 }, 0.1)
+          .to(".leaf-f", { x: 12, y: -112, rotate: -8, scale: 0.76, duration: 0.14 }, 0.1)
 
-          .to(".origin-title", { autoAlpha: 0, y: -22, duration: 0.1 }, 0.16)
-          .fromTo(".origin-map", { autoAlpha: 0, scale: 0.98 }, { autoAlpha: 1, scale: 1, duration: 0.12 }, 0.16)
+          .to(".origin-title", { autoAlpha: 0, y: -22, duration: 0.1 }, 0.18)
+          .fromTo(".origin-map", { autoAlpha: 0, scale: 0.98 }, { autoAlpha: 1, scale: 1, duration: 0.12 }, 0.18)
           .fromTo(labels, { autoAlpha: 0, y: 8 }, { autoAlpha: 0.9, y: 0, stagger: 0.02, duration: 0.12 }, 0.2)
           .fromTo(originPaths, { autoAlpha: 0, strokeDashoffset: 1 }, { autoAlpha: 0.55, strokeDashoffset: 0, stagger: 0.015, duration: 0.12 }, 0.22)
           .to(".leaf-a", { x: "-30vw", y: "-19vh", rotate: -35, scale: 0.48, duration: 0.18 }, 0.2)
@@ -161,14 +172,16 @@ export function OriginJourney() {
         });
 
         timeline
-          .fromTo(mobileLeaves, { autoAlpha: 0, scale: 0.78 }, { autoAlpha: 1, scale: 0.9, stagger: 0.03, duration: 0.1 })
-          .fromTo(".origin-title", { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0)
-          .to(".leaf-a", { x: -48, y: -34, rotate: -18, scale: 0.72, duration: 0.12 }, 0.08)
-          .to(".leaf-b", { x: 48, y: -24, rotate: 14, scale: 0.68, duration: 0.12 }, 0.08)
-          .to(".leaf-c", { x: -46, y: 56, rotate: 20, scale: 0.66, duration: 0.12 }, 0.08)
-          .to(".leaf-d", { x: 52, y: 62, rotate: -22, scale: 0.68, duration: 0.12 }, 0.08)
-          .to(".origin-title", { autoAlpha: 0, y: -18, duration: 0.1 }, 0.18)
-          .fromTo(".origin-map", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.2)
+          .fromTo(".hero-cup", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -6, scale: 1.02, duration: 0.1 }, 0)
+          .fromTo(mobileLeaves, { autoAlpha: 0, scale: 0.54 }, { autoAlpha: 1, scale: 0.74, stagger: 0.03, duration: 0.1 }, 0.1)
+          .to(".hero-scroll-cue", { autoAlpha: 0, y: 16, duration: 0.08 }, 0.08)
+          .to(".hero-cup", { autoAlpha: 0, y: -46, scale: 0.82, duration: 0.12 }, 0.13)
+          .to(".leaf-a", { x: -48, y: -34, rotate: -18, scale: 0.72, duration: 0.12 }, 0.12)
+          .to(".leaf-b", { x: 48, y: -24, rotate: 14, scale: 0.68, duration: 0.12 }, 0.12)
+          .to(".leaf-c", { x: -46, y: 56, rotate: 20, scale: 0.66, duration: 0.12 }, 0.12)
+          .to(".leaf-d", { x: 52, y: 62, rotate: -22, scale: 0.68, duration: 0.12 }, 0.12)
+          .to(".origin-title", { autoAlpha: 0, y: -18, duration: 0.1 }, 0.2)
+          .fromTo(".origin-map", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.22)
           .fromTo(labels.slice(0, 4), { autoAlpha: 0, y: 8 }, { autoAlpha: 0.9, y: 0, stagger: 0.02, duration: 0.12 }, 0.23)
           .to(".leaf-a", { x: "-30vw", y: "-12vh", scale: 0.34, rotate: -28, duration: 0.16 }, 0.24)
           .to(".leaf-b", { x: "28vw", y: "-10vh", scale: 0.34, rotate: 24, duration: 0.16 }, 0.24)
@@ -209,6 +222,21 @@ export function OriginJourney() {
           <p className="eyebrow">Leaf · origin · storage · cup</p>
           <h1 id="home-title">Every cup begins somewhere.</h1>
           <p>Follow the leaf into the shop, the kettle, and the quiet of the table.</p>
+        </div>
+
+        <div className="hero-cup" aria-hidden="true">
+          <Image
+            src={homeAssets.isolatedCupLeaves.src}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 768px) 76vw, 36vw"
+          />
+        </div>
+
+        <div className="hero-scroll-cue" aria-hidden="true">
+          <span>Scroll to follow the journey</span>
+          <i />
         </div>
 
         <div className="leaf-field" aria-hidden="true">
@@ -270,10 +298,10 @@ export function OriginJourney() {
             </div>
             <Image
               className="brew-leaf"
-              src={homeAssets.journeyLeafC.src}
+              src={homeAssets.isolatedSingleLeaf.src}
               alt=""
-              width={395}
-              height={235}
+              width={432}
+              height={578}
             />
             <svg className="steam" viewBox="0 0 220 240">
               <path className="steam-line steam-one" d="M70 214 C44 174 93 153 68 116 C43 79 83 62 78 25" />

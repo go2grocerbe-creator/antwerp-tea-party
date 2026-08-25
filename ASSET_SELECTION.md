@@ -73,6 +73,28 @@ Reason: Keeps the V0.3 emotional ending but uses an optimized warmer crop of the
 - `Reference Photos/tealeaf-cup-jpg.jpg`: rejected because it looks like generic clip art, not a premium tea-homepage asset.
 - `Reference Photos/Recording 2026-08-25 152415.mp4`: sampled, but not used because it appears to be a recording of the existing webpage rather than source product/shop footage.
 
+## V0.5 Isolated Asset Integration
+
+Original folder: `../Reference Photos/Assets`
+
+Reference files modified: no.
+
+Copied into `public/images/assets/`:
+
+- `Tea_-_Landing_Page-removebg-preview.png` -> `cup-three-leaves.png`
+- `single_leaf-removebg-preview.png` -> `single-leaf.png`
+- `Tin_Open_Lid-removebg-preview.png` -> `tin-open-lid.png`
+- `tin-removebg-preview.png` -> `tin-front.png`
+- `Sofa-removebg-preview.png` -> `chair-illustration.png`
+
+Usage:
+
+- `cup-three-leaves.png` is the first-load hero focal object so the homepage no longer opens on sparse parchment.
+- `single-leaf.png` drives the opening leaf/origin sequence and the brewing leaf accent.
+- `tin-open-lid.png` is used for the leaf-falls-into-tin moment.
+- `tin-front.png` is used for the selected/storage tin object before the shelf reveal.
+- `chair-illustration.png` is used in the later tea-table/invitation section, layered over the real seating photograph.
+
 ## Shelf Reveal
 
 Original: `../Reference Photos/WhatsApp Image 2026-08-25 at 2.26.23 PM.jpeg`
