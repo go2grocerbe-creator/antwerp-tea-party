@@ -33,17 +33,15 @@ function JourneyLeaf({ className, src }: { className: string; src: string }) {
 }
 
 function TinCanister({ className = "" }: { className?: string }) {
-  const isOpenTin = className.includes("storage-tin");
-
   return (
-    <div className={`tin-scene tin-photo ${isOpenTin ? "tin-photo--open" : "tin-photo--front"} ${className}`} aria-hidden="true">
+    <div className={`tin-scene tin-photo tin-photo--open ${className}`} aria-hidden="true">
       <Image
-        src={isOpenTin ? homeAssets.isolatedTinOpen.src : homeAssets.isolatedTinFront.src}
+        src={homeAssets.isolatedTinOpen.src}
         alt=""
         fill
         sizes="(max-width: 768px) 58vw, 31vw"
       />
-      {isOpenTin ? <span className="tin-opening-mask" /> : <span className="tin-photo-rim" />}
+      <span className="tin-opening-mask" />
     </div>
   );
 }
@@ -69,8 +67,7 @@ export function OriginJourney() {
           ".shelf-reveal",
           ".shelf-copy",
           ".brewing-layer",
-          ".lounge-layer",
-          ".hero-cup",
+          ".hero-teapot",
           ".hero-scroll-cue",
           ".journey-leaf",
         ],
@@ -81,11 +78,10 @@ export function OriginJourney() {
     }
 
     const ctx = gsap.context(() => {
-      gsap.set([".origin-map", ".tin-scene", ".tin-copy", ".shelf-reveal", ".shelf-copy", ".selection-tin", ".brewing-layer", ".lounge-layer"], {
+      gsap.set([".origin-map", ".tin-scene", ".tin-copy", ".shelf-reveal", ".shelf-copy", ".brewing-layer"], {
         autoAlpha: 0,
       });
       gsap.set(".steam-line", { autoAlpha: 0, y: 20, scaleY: 0.75 });
-      gsap.set(".lounge-copy", { autoAlpha: 0, y: 24 });
 
       const mm = gsap.matchMedia();
 
@@ -103,10 +99,10 @@ export function OriginJourney() {
         });
 
         timeline
-          .fromTo(".hero-cup", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -10, scale: 1.02, duration: 0.1 }, 0)
+          .fromTo(".hero-teapot", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -10, scale: 1.015, duration: 0.1 }, 0)
           .fromTo(journeyLeaves, { autoAlpha: 0, scale: 0.58, rotate: -8 }, { autoAlpha: 1, scale: 0.82, rotate: 0, stagger: 0.035, duration: 0.08 }, 0.08)
           .to(".hero-scroll-cue", { autoAlpha: 0, y: 18, duration: 0.08 }, 0.08)
-          .to(".hero-cup", { autoAlpha: 0, y: -70, scale: 0.86, duration: 0.12 }, 0.12)
+          .to(".hero-teapot", { autoAlpha: 0, y: -64, scale: 0.9, duration: 0.12 }, 0.12)
           .to(".leaf-a", { x: -72, y: -38, rotate: -18, scale: 0.9, duration: 0.14 }, 0.1)
           .to(".leaf-b", { x: 88, y: -24, rotate: 16, scale: 0.82, duration: 0.14 }, 0.1)
           .to(".leaf-c", { x: -96, y: 62, rotate: 22, scale: 0.78, duration: 0.14 }, 0.1)
@@ -140,19 +136,15 @@ export function OriginJourney() {
           .to(".storage-tin", { autoAlpha: 0, duration: 0.06 }, 0.84)
 
           .to(".shelf-copy", { autoAlpha: 0, y: -14, duration: 0.08 }, 0.9)
-          .fromTo(".selection-tin", { autoAlpha: 0, scale: 0.34, y: "-4vh" }, { autoAlpha: 1, scale: 0.74, y: 0, duration: 0.12 }, 0.9)
           .to(".shelf-reveal", { autoAlpha: 0.38, scale: 1.06, duration: 0.14 }, 0.92)
           .fromTo(".brewing-layer", { autoAlpha: 0, y: 34 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.98)
-          .to(".selection-tin", { autoAlpha: 0, scale: 0.95, y: "12vh", duration: 0.1 }, 1.02)
           .to(".shelf-reveal", { autoAlpha: 0, duration: 0.12 }, 1.04)
           .fromTo(".brew-leaf", { autoAlpha: 0, y: -30, rotate: -18 }, { autoAlpha: 0.82, y: 0, rotate: 8, duration: 0.08 }, 1.06)
           .fromTo(".steam-line", { autoAlpha: 0, y: 28, scaleY: 0.72 }, { autoAlpha: 0.68, y: 0, scaleY: 1, stagger: 0.025, duration: 0.16 }, 1.1)
 
           .to(".brewing-copy", { autoAlpha: 0, y: -16, duration: 0.08 }, 1.2)
           .to(".steam-line", { y: -95, scaleY: 1.32, autoAlpha: 0.5, duration: 0.14 }, 1.2)
-          .fromTo(".lounge-layer", { autoAlpha: 0, scale: 1.06 }, { autoAlpha: 1, scale: 1, duration: 0.18 }, 1.24)
-          .to(".brewing-layer", { autoAlpha: 0, y: -50, duration: 0.16 }, 1.28)
-          .fromTo(".lounge-copy", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 1.34);
+          .to(".brewing-layer", { autoAlpha: 0, y: -50, duration: 0.16 }, 1.3);
       });
 
       mm.add("(max-width: 768px)", () => {
@@ -172,10 +164,10 @@ export function OriginJourney() {
         });
 
         timeline
-          .fromTo(".hero-cup", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -6, scale: 1.02, duration: 0.1 }, 0)
+          .fromTo(".hero-teapot", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -6, scale: 1.015, duration: 0.1 }, 0)
           .fromTo(mobileLeaves, { autoAlpha: 0, scale: 0.54 }, { autoAlpha: 1, scale: 0.74, stagger: 0.03, duration: 0.1 }, 0.1)
           .to(".hero-scroll-cue", { autoAlpha: 0, y: 16, duration: 0.08 }, 0.08)
-          .to(".hero-cup", { autoAlpha: 0, y: -46, scale: 0.82, duration: 0.12 }, 0.13)
+          .to(".hero-teapot", { autoAlpha: 0, y: -42, scale: 0.9, duration: 0.12 }, 0.13)
           .to(".leaf-a", { x: -48, y: -34, rotate: -18, scale: 0.72, duration: 0.12 }, 0.12)
           .to(".leaf-b", { x: 48, y: -24, rotate: 14, scale: 0.68, duration: 0.12 }, 0.12)
           .to(".leaf-c", { x: -46, y: 56, rotate: 20, scale: 0.66, duration: 0.12 }, 0.12)
@@ -198,15 +190,12 @@ export function OriginJourney() {
           .to(".storage-tin", { scale: 0.25, y: "-7vh", autoAlpha: 0, duration: 0.12 }, 0.74)
           .fromTo(".shelf-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 0.82)
           .to(".shelf-copy", { autoAlpha: 0, y: -12, duration: 0.08 }, 0.9)
-          .fromTo(".selection-tin", { autoAlpha: 0, scale: 0.36 }, { autoAlpha: 1, scale: 0.58, duration: 0.1 }, 0.91)
           .to(".shelf-reveal", { autoAlpha: 0.32, scale: 1.05, duration: 0.12 }, 0.92)
           .fromTo(".brewing-layer", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.99)
-          .to([".selection-tin", ".shelf-reveal"], { autoAlpha: 0, duration: 0.1 }, 1.04)
+          .to(".shelf-reveal", { autoAlpha: 0, duration: 0.1 }, 1.04)
           .fromTo(".steam-line", { autoAlpha: 0, y: 20, scaleY: 0.74 }, { autoAlpha: 0.6, y: 0, scaleY: 1, stagger: 0.02, duration: 0.14 }, 1.09)
           .to(".steam-line", { y: -70, scaleY: 1.25, autoAlpha: 0.5, duration: 0.14 }, 1.2)
-          .fromTo(".lounge-layer", { autoAlpha: 0, scale: 1.05 }, { autoAlpha: 1, scale: 1, duration: 0.16 }, 1.24)
-          .to(".brewing-layer", { autoAlpha: 0, y: -42, duration: 0.14 }, 1.28)
-          .fromTo(".lounge-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 1.34);
+          .to(".brewing-layer", { autoAlpha: 0, y: -42, duration: 0.14 }, 1.3);
       });
 
       return () => mm.revert();
@@ -224,9 +213,9 @@ export function OriginJourney() {
           <p>Follow the leaf into the shop, the kettle, and the quiet of the table.</p>
         </div>
 
-        <div className="hero-cup" aria-hidden="true">
+        <div className="hero-teapot" aria-hidden="true">
           <Image
-            src={homeAssets.isolatedCupLeaves.src}
+            src={homeAssets.isolatedFloralTeapot.src}
             alt=""
             fill
             priority
@@ -278,8 +267,6 @@ export function OriginJourney() {
           />
         </div>
 
-        <TinCanister className="selection-tin" />
-
         <div className="shelf-copy story-copy">
           <h2>Hundreds of teas. One place to discover them.</h2>
           <p>Find the tea that feels like yours.</p>
@@ -315,14 +302,6 @@ export function OriginJourney() {
           </div>
         </div>
 
-        <div className="lounge-layer" aria-labelledby="lounge-title">
-          <Image src={homeAssets.journeyLounge.src} alt={homeAssets.journeyLounge.alt} fill sizes="100vw" />
-          <div className="lounge-copy">
-            <p className="eyebrow">Sharing</p>
-            <h2 id="lounge-title">Some teas are better shared.</h2>
-            <p>Stay for a cup. Let the day soften.</p>
-          </div>
-        </div>
       </div>
     </section>
   );

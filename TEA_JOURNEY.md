@@ -4,7 +4,7 @@
 
 Reference: `../Reference Documents/ANT-TP-Slide1/1.svg`
 
-An editorial first frame pairs the headline with the isolated cup-and-three-leaves asset so the page has a clear focal object immediately. As scrolling begins, the cup recedes and the isolated single leaf becomes the journey protagonist.
+An editorial first frame pairs the headline with the isolated floral teapot asset so the page has a clear focal object immediately. As scrolling begins, the teapot recedes and the isolated single leaf becomes the journey protagonist.
 
 ## 02 Origin
 
@@ -34,13 +34,13 @@ A chosen tin recedes into real porcelain teapot and shop-display photography. A 
 
 Reference: `../Reference Documents/ANT-TP-Slide1/6.svg`
 
-Steam lifts into the warm chair/lounge photograph. The final copy resolves the animated journey into the existing tasting message: "Some teas are better shared."
+The pinned journey now hands off to the single illustrated tea-table invitation section below. The final copy resolves there into the existing tasting message: "Some teas are better shared."
 
 ## Implementation Notes
 
 - Animation method: one GSAP ScrollTrigger timeline inside `src/components/home/OriginJourney.tsx`.
 - GSAP was already installed before V0.3; no new animation dependency was added.
 - V0.4 replaces the temporary leaf SVG, CSS storage tin, and CSS kettle/cup with optimized photographic or botanical assets in `public/tea-journey`.
-- V0.5 integrates the new isolated assets from `Reference Photos/Assets` for the hero cup, journey leaf, open tin, front tin, and invitation chair.
+- V0.5 integrates the new isolated assets from `Reference Photos/Assets` for the hero teapot, journey leaf, open tin, and invitation chair. The front-view tin remains available in the asset folder but is not rendered over the shelf scene.
 - Reduced motion keeps all six chapters readable as static stacked content.
 - The original storyboard SVGs remain read-only and unchanged.

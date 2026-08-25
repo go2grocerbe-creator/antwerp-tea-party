@@ -203,18 +203,18 @@ button:focus-visible {
   max-width: 430px;
 }
 
-.hero-cup {
-  aspect-ratio: 432 / 578;
+.hero-teapot {
+  aspect-ratio: 600 / 450;
   bottom: clamp(24px, 7vh, 76px);
-  filter: drop-shadow(0 34px 40px rgba(31, 26, 22, 0.18));
+  filter: drop-shadow(0 36px 42px rgba(31, 26, 22, 0.19));
   opacity: 1;
   position: absolute;
-  right: clamp(14px, 9vw, 150px);
-  width: clamp(230px, 32vw, 430px);
+  right: clamp(16px, 8vw, 136px);
+  width: clamp(320px, 41vw, 620px);
   z-index: 10;
 }
 
-.hero-cup img {
+.hero-teapot img {
   object-fit: contain;
 }
 
@@ -388,23 +388,6 @@ button:focus-visible {
   width: 54%;
 }
 
-.tin-photo--front {
-  filter: drop-shadow(0 34px 40px rgba(31, 26, 22, 0.3));
-}
-
-.tin-photo-rim {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
-  border-radius: 999px;
-  height: 34%;
-  left: 20%;
-  opacity: 0.42;
-  pointer-events: none;
-  position: absolute;
-  top: 5%;
-  transform: rotate(-5deg);
-  width: 42%;
-}
-
 .tin-opening-mask {
   background: radial-gradient(ellipse at center, rgba(1, 1, 1, 0.5), rgba(1, 1, 1, 0.08) 48%, transparent 70%);
   border-radius: 50%;
@@ -418,13 +401,6 @@ button:focus-visible {
 
 .storage-tin {
   z-index: 10;
-}
-
-.selection-tin {
-  --tin-width: clamp(210px, 22vw, 320px);
-
-  bottom: 22vh;
-  z-index: 11;
 }
 
 .shop-story__image::after,
@@ -471,8 +447,8 @@ button:focus-visible {
 
 .shelf-reveal::after {
   background:
-    linear-gradient(90deg, rgba(1, 66, 53, 0.72) 0%, rgba(1, 66, 53, 0.28) 36%, rgba(1, 66, 53, 0) 68%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.2));
+    linear-gradient(90deg, rgba(1, 66, 53, 0.58) 0%, rgba(1, 66, 53, 0.2) 34%, rgba(1, 66, 53, 0) 68%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.12));
   content: "";
   inset: 0;
   position: absolute;
@@ -489,8 +465,7 @@ button:focus-visible {
   color: rgba(255, 255, 255, 0.82);
 }
 
-.brewing-layer,
-.lounge-layer {
+.brewing-layer {
   inset: 0;
   opacity: 0;
   position: absolute;
@@ -585,45 +560,6 @@ button:focus-visible {
   top: auto;
 }
 
-.lounge-layer {
-  overflow: hidden;
-  z-index: 14;
-}
-
-.lounge-layer::after {
-  background:
-    linear-gradient(90deg, rgba(31, 26, 22, 0.74) 0%, rgba(31, 26, 22, 0.32) 38%, rgba(31, 26, 22, 0) 70%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.24), transparent 62%);
-  content: "";
-  inset: 0;
-  position: absolute;
-  z-index: 1;
-}
-
-.lounge-copy {
-  bottom: clamp(56px, 10vh, 120px);
-  color: var(--white);
-  left: clamp(18px, 7vw, 96px);
-  max-width: 720px;
-  position: absolute;
-  z-index: 2;
-}
-
-.lounge-copy h2 {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(3.2rem, 8vw, 8rem);
-  font-weight: 500;
-  line-height: 0.95;
-  margin: 0;
-}
-
-.lounge-copy p:not(.eyebrow) {
-  color: rgba(255, 255, 255, 0.84);
-  font-size: clamp(1rem, 1.45vw, 1.24rem);
-  line-height: 1.7;
-  margin: 24px 0 0;
-}
-
 .button {
   background: var(--green);
   color: var(--white);
@@ -663,16 +599,20 @@ button:focus-visible {
 }
 
 .shop-story {
+  align-items: stretch;
   background: var(--paper);
-  align-items: center;
 }
 
 .shop-story__image {
-  aspect-ratio: 4 / 5;
   box-shadow: var(--shadow);
-  min-height: 580px;
+  min-height: clamp(560px, 64vw, 760px);
   overflow: hidden;
   position: relative;
+}
+
+.shop-story__image img {
+  object-fit: cover;
+  object-position: 52% 50%;
 }
 
 .shop-story__copy,
@@ -735,6 +675,10 @@ button:focus-visible {
 
 .tea-table {
   align-items: center;
+  background:
+    linear-gradient(90deg, rgba(253, 248, 238, 0.92), rgba(245, 234, 220, 0.92)),
+    radial-gradient(circle at 78% 28%, rgba(164, 95, 83, 0.14), transparent 30%),
+    var(--paper);
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.55fr);
   min-height: 92vh;
@@ -743,27 +687,26 @@ button:focus-visible {
   position: relative;
 }
 
-.tea-table > img {
-  z-index: 0;
-}
-
 .tea-table::after {
-  background:
-    linear-gradient(90deg, rgba(31, 26, 22, 0.76) 0%, rgba(31, 26, 22, 0.44) 44%, rgba(31, 26, 22, 0.12) 100%),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.3), transparent 70%);
-  z-index: 1;
+  background: linear-gradient(90deg, rgba(1, 66, 53, 0.24), transparent);
+  bottom: clamp(70px, 11vh, 130px);
+  height: 1px;
+  left: clamp(18px, 6vw, 90px);
+  right: clamp(18px, 6vw, 90px);
+  top: auto;
+  z-index: 0;
 }
 
 .tea-table__chair {
   aspect-ratio: 578 / 432;
-  filter: drop-shadow(0 30px 42px rgba(0, 0, 0, 0.34));
+  filter: drop-shadow(0 26px 34px rgba(31, 26, 22, 0.16));
   grid-column: 2;
   justify-self: end;
   max-width: 560px;
-  opacity: 0.94;
+  opacity: 0.96;
   position: relative;
   width: min(34vw, 560px);
-  z-index: 2;
+  z-index: 1;
 }
 
 .tea-table__chair img {
@@ -771,7 +714,7 @@ button:focus-visible {
 }
 
 .tea-table__copy {
-  color: var(--white);
+  color: var(--green);
   grid-column: 1;
   grid-row: 1;
   max-width: 760px;
@@ -784,7 +727,7 @@ button:focus-visible {
 }
 
 .tea-table p:not(.eyebrow) {
-  color: rgba(255, 255, 255, 0.86);
+  color: var(--muted);
   font-size: clamp(1rem, 1.5vw, 1.28rem);
   margin: 24px 0 32px;
 }
@@ -949,10 +892,10 @@ address strong {
     top: calc(50% - 76px);
   }
 
-  .hero-cup {
+  .hero-teapot {
     bottom: 54px;
     right: max(10px, 4vw);
-    width: clamp(210px, 46vw, 330px);
+    width: clamp(260px, 50vw, 430px);
   }
 
   .hero-scroll-cue {
@@ -1101,11 +1044,11 @@ address strong {
     max-width: 280px;
   }
 
-  .hero-cup {
+  .hero-teapot {
     bottom: 72px;
     opacity: 0.9;
-    right: -14px;
-    width: clamp(180px, 56vw, 245px);
+    right: -28px;
+    width: clamp(240px, 68vw, 330px);
   }
 
   .hero-scroll-cue {
@@ -1128,8 +1071,7 @@ address strong {
   .shop-story h2,
   .expertise h2,
   .tea-table h2,
-  .site-footer h2,
-  .lounge-copy h2 {
+  .site-footer h2 {
     font-size: clamp(2.8rem, 13vw, 4.2rem);
   }
 
@@ -1147,11 +1089,6 @@ address strong {
     width: min(82vw, 300px);
   }
 
-  .lounge-copy {
-    bottom: 54px;
-    left: 18px;
-    right: 18px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1176,28 +1113,27 @@ address strong {
 
   .origin-title,
   .leaf-field,
-  .hero-cup,
+  .hero-teapot,
   .hero-scroll-cue,
   .origin-map,
   .tin-scene,
   .story-copy,
   .shelf-reveal,
-  .brewing-layer,
-  .lounge-layer {
+  .brewing-layer {
     position: relative;
     transform: none;
   }
 
   .origin-title,
-  .hero-cup,
+  .hero-teapot,
   .hero-scroll-cue,
   .tin-copy,
   .shelf-copy {
     inset: auto;
   }
 
-  .hero-cup {
-    aspect-ratio: 432 / 578;
+  .hero-teapot {
+    aspect-ratio: 600 / 450;
     width: min(320px, 76vw);
   }
 
@@ -1265,9 +1201,4 @@ address strong {
     width: min(900px, 100%);
   }
 
-  .lounge-layer {
-    aspect-ratio: 4 / 5;
-    min-height: 520px;
-    width: min(900px, 100%);
-  }
 }

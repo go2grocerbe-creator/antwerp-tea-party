@@ -82,6 +82,7 @@ Reference files modified: no.
 Copied into `public/images/assets/`:
 
 - `Tea_-_Landing_Page-removebg-preview.png` -> `cup-three-leaves.png`
+- `tea-pot.png` -> `floral-teapot.png`
 - `single_leaf-removebg-preview.png` -> `single-leaf.png`
 - `Tin_Open_Lid-removebg-preview.png` -> `tin-open-lid.png`
 - `tin-removebg-preview.png` -> `tin-front.png`
@@ -89,11 +90,12 @@ Copied into `public/images/assets/`:
 
 Usage:
 
-- `cup-three-leaves.png` is the first-load hero focal object so the homepage no longer opens on sparse parchment.
+- `floral-teapot.png` is the first-load hero focal object so the homepage opens with a cleaner isolated teapot composition.
+- `cup-three-leaves.png` remains copied for reference but is no longer used as the hero focal object in the V0.4 focused correction.
 - `single-leaf.png` drives the opening leaf/origin sequence and the brewing leaf accent.
 - `tin-open-lid.png` is used for the leaf-falls-into-tin moment.
-- `tin-front.png` is used for the selected/storage tin object before the shelf reveal.
-- `chair-illustration.png` is used in the later tea-table/invitation section, layered over the real seating photograph.
+- `tin-front.png` remains copied for reference but is not rendered in the shelf sequence; the small floating front-tin overlay was removed.
+- `chair-illustration.png` is used as the main visual in the single final tea-table/invitation section.
 
 ## Shelf Reveal
 

@@ -79,6 +79,10 @@ export const homeAssets = {
     src: "/images/assets/cup-three-leaves.png",
     alt: "A teacup with three green leaves rising from it.",
   },
+  isolatedFloralTeapot: {
+    src: "/images/assets/floral-teapot.png",
+    alt: "A floral porcelain teapot with a woven handle.",
+  },
   isolatedSingleLeaf: {
     src: "/images/assets/single-leaf.png",
     alt: "",

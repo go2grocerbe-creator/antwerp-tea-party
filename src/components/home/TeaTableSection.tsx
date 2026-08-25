@@ -5,12 +5,6 @@ import { site } from "@/data/site";
 export function TeaTableSection() {
   return (
     <section className="tea-table" id="tastings" aria-labelledby="tea-table-title">
-      <Image
-        src={homeAssets.chairs.src}
-        alt={homeAssets.chairs.alt}
-        fill
-        sizes="100vw"
-      />
       <div className="tea-table__chair" aria-hidden="true">
         <Image src={homeAssets.isolatedChair.src} alt="" fill sizes="(max-width: 768px) 78vw, 34vw" />
       </div>
@@ -19,10 +13,10 @@ export function TeaTableSection() {
         <h2 id="tea-table-title">Some teas are better shared.</h2>
         <p>Tea tastings · Private gatherings · Conversations about tea</p>
         <div className="cta-row">
-          <a className="button button--light" href={site.ctas.bookTasting}>
+          <a className="button" href={site.ctas.bookTasting}>
             Book a tasting
           </a>
-          <a className="text-link text-link--light" href={site.ctas.experiences}>
+          <a className="text-link" href={site.ctas.experiences}>
             Discover tea experiences
           </a>
         </div>
