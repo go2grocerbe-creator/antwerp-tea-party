@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Antwerp Tea Party
 
-## Getting Started
+V0.1 homepage demo for The Antwerp Tea Party, a specialized independent tea boutique in Antwerp. The first page is built as a lightweight production foundation: Next.js App Router, TypeScript, Tailwind CSS, `next/image`, and GSAP ScrollTrigger for one restrained scroll storytelling sequence.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Linting:
 
-## Learn More
+```bash
+npm run lint
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project is intended to deploy cleanly to Vercel. The repository root should be this `webapp` folder.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Assets
 
-## Deploy on Vercel
+Original source material lives outside the app and must remain read-only:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```text
+E:\ANTWERP TEA PARTY\Reference Photos
+E:\ANTWERP TEA PARTY\Reference Documents
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Selected, optimized copies are placed in:
+
+```text
+public/images
+public/illustrations
+```
+
+See `ASSET_SELECTION.md` for the current homepage image choices.
+
+## Content
+
+Business and editable content is centralized in:
+
+```text
+src/data/site.ts
+src/data/navigation.ts
+src/data/origins.ts
+src/data/assets.ts
+```
+
+Unverified details are marked with TODO comments in the data files and summarized in `DEMO_NOTES.md`.
+
+## Animation
+
+The GSAP ScrollTrigger timeline lives in:
+
+```text
+src/components/home/OriginJourney.tsx
+```
+
+It handles the opening journey from prototype origins to leaf, tin, and real shelf reveal. Editorial sections after that are intentionally calmer and mostly static.
