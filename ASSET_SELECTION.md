@@ -6,7 +6,7 @@ Original: `../Reference Photos/WhatsApp Image 2026-08-25 at 2.26.23 PM.jpeg`
 
 Copied as: `public/images/tea-wall-silver-tins.jpg`
 
-Reason: Strong repeated wall of silver tea tins in wooden cabinetry, useful for the tin-to-shelf reveal.
+Reason: Strong repeated wall of silver tea tins in wooden cabinetry, useful for the final tin-to-shelf reveal. V0.2 keeps this as the final shelf image because it reads most clearly as "many teas"; the black tin imagery is stronger for object reference but less expansive as a full-viewport shelf reveal.
 
 ## Shelf Angle Detail
 

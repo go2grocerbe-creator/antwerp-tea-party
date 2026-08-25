@@ -7,6 +7,7 @@ export function ExpertiseSection() {
       <div className="expertise__copy">
         <p className="eyebrow">Knowledge</p>
         <h2 id="expertise-title">Tea chosen with knowledge.</h2>
+        {/* TODO: Future asset: photograph owner selecting/handling/explaining tea to communicate expertise. */}
         <p>
           A good tea shop is not only about selection. It is about helping someone
           discover what suits them.

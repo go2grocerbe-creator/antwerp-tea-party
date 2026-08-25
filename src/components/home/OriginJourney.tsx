@@ -26,7 +26,7 @@ export function OriginJourney() {
 
     if (reduceMotion) {
       gsap.set(labels, { autoAlpha: 1, y: 0, scale: 1 });
-      gsap.set([".tin-opening", ".tin-body", ".shelf-reveal", ".story-copy"], {
+      gsap.set([".tin-scene", ".shelf-reveal", ".story-copy"], {
         autoAlpha: 1,
       });
       return;
@@ -49,18 +49,20 @@ export function OriginJourney() {
         });
 
         timeline
-          .fromTo(leafRef.current, { autoAlpha: 0, scale: 0.92, rotate: -4 }, { autoAlpha: 1, scale: 1, rotate: 2, duration: 0.18 })
-          .fromTo(labels, { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, stagger: 0.035, duration: 0.2 }, 0.13)
-          .to(titleRef.current, { y: -28, autoAlpha: 0.56, duration: 0.22 }, 0.18)
-          .to(labels, { x: 0, y: 18, scale: 0.82, autoAlpha: 0, stagger: 0.015, duration: 0.22 }, 0.36)
-          .to(leafRef.current, { y: "28vh", rotate: 9, scale: 0.9, duration: 0.25 }, 0.42)
-          .fromTo(".tin-opening", { autoAlpha: 0, scale: 0.62 }, { autoAlpha: 1, scale: 1, duration: 0.2 }, 0.43)
-          .fromTo(".tin-body", { autoAlpha: 0, y: 80, scale: 1.08 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.24 }, 0.5)
-          .to(leafRef.current, { y: "42vh", scale: 0.34, autoAlpha: 0, duration: 0.16 }, 0.62)
-          .fromTo(".tin-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.2 }, 0.65)
-          .to(tinRef.current, { scale: 0.48, y: "-4vh", duration: 0.28 }, 0.72)
-          .fromTo(shelfRef.current, { autoAlpha: 0, scale: 1.12 }, { autoAlpha: 1, scale: 1, duration: 0.32 }, 0.76)
-          .fromTo(".shelf-copy", { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.18 }, 0.86);
+          .fromTo(leafRef.current, { autoAlpha: 0, scale: 0.9, rotate: -3 }, { autoAlpha: 1, scale: 1.08, rotate: 1.5, duration: 0.1 })
+          .fromTo(titleRef.current, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0)
+          .fromTo(labels, { autoAlpha: 0, y: 14, scale: 0.96 }, { autoAlpha: 0.86, y: 0, scale: 1, stagger: 0.035, duration: 0.25 }, 0.1)
+          .to(titleRef.current, { y: -24, autoAlpha: 0, duration: 0.18 }, 0.28)
+          .to(labels, { y: 16, scale: 0.86, autoAlpha: 0, stagger: 0.012, duration: 0.14 }, 0.36)
+          .to(leafRef.current, { y: "27vh", rotate: 7, scale: 0.98, duration: 0.2 }, 0.45)
+          .fromTo(".tin-scene", { autoAlpha: 0, y: "18vh", scale: 0.92 }, { autoAlpha: 1, y: "4vh", scale: 1, duration: 0.18 }, 0.53)
+          .to(leafRef.current, { y: "41vh", scale: 0.42, autoAlpha: 0, duration: 0.13 }, 0.64)
+          .fromTo(".tin-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.16 }, 0.68)
+          .to(".tin-copy", { autoAlpha: 0, y: -12, duration: 0.12 }, 0.8)
+          .to(tinRef.current, { scale: 0.34, y: "-10vh", autoAlpha: 0.72, duration: 0.18 }, 0.79)
+          .fromTo(shelfRef.current, { autoAlpha: 0, scale: 1.08, x: "3vw" }, { autoAlpha: 1, scale: 1, x: 0, duration: 0.22 }, 0.8)
+          .to([titleRef.current, leafRef.current, labels, tinRef.current, ".tin-copy"], { autoAlpha: 0, duration: 0.08 }, 0.91)
+          .fromTo(".shelf-copy", { autoAlpha: 0, y: 28 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.94);
       });
 
       mm.add("(max-width: 768px)", () => {
@@ -76,18 +78,20 @@ export function OriginJourney() {
         });
 
         timeline
-          .fromTo(leafRef.current, { autoAlpha: 0, scale: 0.92 }, { autoAlpha: 1, scale: 1, duration: 0.2 })
-          .fromTo(labels, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, stagger: 0.025, duration: 0.18 }, 0.12)
-          .to(labels, { autoAlpha: 0, scale: 0.9, duration: 0.2 }, 0.36)
-          .to(titleRef.current, { autoAlpha: 0, y: -18, duration: 0.18 }, 0.38)
-          .to(leafRef.current, { y: "24vh", rotate: 7, scale: 0.82, duration: 0.28 }, 0.42)
-          .fromTo(".tin-opening", { autoAlpha: 0, scale: 0.7 }, { autoAlpha: 1, scale: 1, duration: 0.18 }, 0.48)
-          .fromTo(".tin-body", { autoAlpha: 0, y: 50 }, { autoAlpha: 1, y: 0, duration: 0.2 }, 0.56)
-          .to(leafRef.current, { autoAlpha: 0, y: "34vh", scale: 0.28, duration: 0.14 }, 0.67)
-          .fromTo(".tin-copy", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.16 }, 0.7)
-          .to(tinRef.current, { scale: 0.64, y: "-2vh", duration: 0.24 }, 0.78)
-          .fromTo(shelfRef.current, { autoAlpha: 0, scale: 1.08 }, { autoAlpha: 1, scale: 1, duration: 0.24 }, 0.82)
-          .fromTo(".shelf-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.16 }, 0.9);
+          .fromTo(leafRef.current, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1.05, duration: 0.12 })
+          .fromTo(titleRef.current, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0)
+          .fromTo(labels, { autoAlpha: 0, y: 10 }, { autoAlpha: 0.88, y: 0, stagger: 0.025, duration: 0.2 }, 0.12)
+          .to(labels, { autoAlpha: 0, scale: 0.88, duration: 0.14 }, 0.36)
+          .to(titleRef.current, { autoAlpha: 0, y: -18, duration: 0.14 }, 0.35)
+          .to(leafRef.current, { y: "23vh", rotate: 7, scale: 0.9, duration: 0.24 }, 0.45)
+          .fromTo(".tin-scene", { autoAlpha: 0, y: "15vh", scale: 0.9 }, { autoAlpha: 1, y: "2vh", scale: 1, duration: 0.18 }, 0.54)
+          .to(leafRef.current, { autoAlpha: 0, y: "34vh", scale: 0.3, duration: 0.12 }, 0.66)
+          .fromTo(".tin-copy", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.14 }, 0.69)
+          .to(".tin-copy", { autoAlpha: 0, y: -10, duration: 0.1 }, 0.8)
+          .to(tinRef.current, { scale: 0.46, y: "-8vh", autoAlpha: 0.68, duration: 0.16 }, 0.79)
+          .fromTo(shelfRef.current, { autoAlpha: 0, scale: 1.06 }, { autoAlpha: 1, scale: 1, duration: 0.2 }, 0.82)
+          .to([titleRef.current, leafRef.current, labels, tinRef.current, ".tin-copy"], { autoAlpha: 0, duration: 0.08 }, 0.91)
+          .fromTo(".shelf-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.94);
       });
 
       return () => mm.revert();
@@ -101,8 +105,8 @@ export function OriginJourney() {
       <div className="origin-journey__stage">
         <div className="origin-title" ref={titleRef}>
           <p className="eyebrow">Origin · leaf · tin · table</p>
-          <h1 id="home-title">The Antwerp Tea Party</h1>
-          <p>Every cup begins somewhere.</p>
+          <h1 id="home-title">Every cup begins somewhere.</h1>
+          <p>Tea traditions shaped by place, climate and time.</p>
         </div>
 
         <div className="origin-orbit" aria-label="Prototype tea origins">
@@ -124,20 +128,10 @@ export function OriginJourney() {
         />
 
         <div className="tin-scene" ref={tinRef} aria-hidden="true">
-          <div className="tin-opening" />
-          <div className="tin-body">
-            <Image
-              src={homeAssets.blackTin.src}
-              alt=""
-              fill
-              priority
-              sizes="(max-width: 768px) 70vw, 420px"
-            />
-            <div className="tin-label">
-              <span>PU ERH</span>
-              <small>Demo label</small>
-            </div>
-          </div>
+          <div className="tin-back-rim" />
+          <div className="tin-mouth" />
+          <div className="tin-body" />
+          <div className="tin-front-rim" />
         </div>
 
         <div className="tin-copy story-copy">

@@ -126,10 +126,10 @@ button:focus-visible {
 
 .origin-title {
   left: 50%;
-  max-width: min(640px, calc(100vw - 36px));
+  max-width: min(520px, calc(100vw - 36px));
   position: absolute;
   text-align: center;
-  top: 17vh;
+  top: 16vh;
   transform: translateX(-50%);
   z-index: 7;
 }
@@ -148,7 +148,7 @@ button:focus-visible {
 
 .origin-title h1 {
   color: var(--green);
-  font-size: clamp(3.6rem, 9vw, 8.5rem);
+  font-size: clamp(2.8rem, 5.8vw, 5.9rem);
 }
 
 .origin-title p:last-child {
@@ -158,8 +158,8 @@ button:focus-visible {
 }
 
 .tea-leaf {
-  filter: drop-shadow(0 18px 28px rgba(1, 66, 53, 0.12));
-  height: clamp(230px, 34vw, 420px);
+  filter: drop-shadow(0 22px 26px rgba(1, 66, 53, 0.18));
+  height: clamp(300px, 39vw, 500px);
   position: relative;
   width: auto;
   z-index: 8;
@@ -173,79 +173,166 @@ button:focus-visible {
 }
 
 .origin-label {
-  border-top: 1px solid var(--line);
+  border-top: 1px solid rgba(1, 66, 53, 0.24);
   color: var(--green);
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.05rem, 1.6vw, 1.55rem);
+  font-size: clamp(1.25rem, 1.9vw, 1.9rem);
   opacity: 0;
-  padding-top: 9px;
+  padding-top: 10px;
   position: absolute;
   white-space: nowrap;
 }
 
-.origin-one {
-  left: 20vw;
-  top: 26vh;
+.origin-label::after {
+  background: rgba(164, 95, 83, 0.36);
+  content: "";
+  height: 1px;
+  position: absolute;
+  top: -1px;
+  width: clamp(32px, 5vw, 70px);
 }
 
-.origin-two {
-  right: 22vw;
+.origin-one {
+  left: calc(50% - 88px);
   top: 24vh;
 }
 
+.origin-two {
+  left: 24vw;
+  top: 34vh;
+}
+
 .origin-three {
-  left: 15vw;
-  top: 52vh;
+  left: 20vw;
+  top: 62vh;
 }
 
 .origin-four {
-  right: 16vw;
-  top: 51vh;
+  right: 25vw;
+  top: 36vh;
 }
 
 .origin-five {
-  left: 28vw;
-  bottom: 18vh;
+  right: 20vw;
+  top: 63vh;
 }
 
 .origin-six {
-  right: 27vw;
-  bottom: 18vh;
+  left: calc(50% - 64px);
+  bottom: 14vh;
 }
 
 .tin-scene {
-  bottom: 7vh;
-  height: clamp(280px, 42vw, 500px);
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-  width: clamp(230px, 32vw, 380px);
-  z-index: 5;
-}
+  --tin-width: clamp(250px, 31vw, 410px);
 
-.tin-opening {
-  background: radial-gradient(circle at 50% 46%, #080706 0 52%, rgba(8, 7, 6, 0) 53%);
-  height: 110px;
+  bottom: 9vh;
+  height: clamp(310px, 39vw, 520px);
   left: 50%;
+  margin-left: calc(var(--tin-width) / -2);
   opacity: 0;
   position: absolute;
-  top: 22px;
+  width: var(--tin-width);
+  z-index: 9;
+}
+
+.tin-back-rim,
+.tin-mouth,
+.tin-front-rim {
+  left: 50%;
+  position: absolute;
   transform: translateX(-50%);
-  width: 86%;
+}
+
+.tin-back-rim {
+  background: linear-gradient(180deg, #15120f, #050505);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  box-shadow: inset 0 16px 18px rgba(255, 255, 255, 0.04);
+  height: 27%;
+  top: 0;
+  width: 88%;
+  z-index: 4;
+}
+
+.tin-mouth {
+  background: radial-gradient(ellipse at 50% 48%, #020202 0 56%, #111 57% 67%, rgba(17, 17, 17, 0) 68%);
+  border-radius: 50%;
+  height: 28%;
+  opacity: 0;
+  top: 1%;
+  width: 84%;
   z-index: 4;
 }
 
 .tin-body {
-  border: 10px solid rgba(251, 247, 238, 0.72);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 18% 76%, rgba(255, 255, 255, 0.1)),
+    linear-gradient(180deg, #171411 0%, #080808 42%, #11100e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 9% 9% / 0 0 5% 5%;
   box-shadow: var(--shadow);
-  height: 100%;
+  clip-path: polygon(7% 12%, 93% 12%, 84% 100%, 16% 100%);
+  height: 86%;
+  left: 50%;
   opacity: 0;
   overflow: hidden;
-  position: relative;
-  width: 100%;
+  position: absolute;
+  top: 13%;
+  transform: translateX(-50%);
+  width: 86%;
+  z-index: 2;
 }
 
-.tin-body::after,
+.tin-body::before {
+  background:
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 18px);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.tin-body::after {
+  background: rgba(0, 0, 0, 0.34);
+  border-radius: 50%;
+  bottom: -7%;
+  content: "";
+  height: 16%;
+  left: 12%;
+  position: absolute;
+  right: 12%;
+}
+
+.tin-front-rim {
+  background: linear-gradient(180deg, #22201c, #050505 55%, #191715);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 -8px 16px rgba(0, 0, 0, 0.6),
+    0 10px 18px rgba(0, 0, 0, 0.24);
+  height: 25%;
+  top: 4%;
+  width: 88%;
+  z-index: 11;
+}
+
+.tin-front-rim::before {
+  background: radial-gradient(ellipse at 50% 42%, #030303 0 57%, rgba(3, 3, 3, 0) 58%);
+  border-radius: 50%;
+  content: "";
+  inset: 13% 6% 25%;
+  position: absolute;
+}
+
+.tin-front-rim::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  content: "";
+  height: 1px;
+  left: 16%;
+  position: absolute;
+  right: 16%;
+  top: 54%;
+}
+
 .shop-story__image::after,
 .tea-table::after,
 .path-panel__image::after {
@@ -256,31 +343,9 @@ button:focus-visible {
   position: absolute;
 }
 
-.tin-label {
-  background: rgba(244, 239, 230, 0.86);
-  color: var(--green);
-  display: grid;
-  gap: 2px;
-  left: 50%;
-  padding: 14px 22px;
-  position: absolute;
-  text-align: center;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 56%;
-  z-index: 2;
-}
-
-.tin-label span {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.45rem;
-}
-
-.tin-label small {
-  color: var(--muted);
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.tin-scene .tin-mouth,
+.tin-scene .tin-body {
+  opacity: 1;
 }
 
 .story-copy {
@@ -317,8 +382,8 @@ button:focus-visible {
 
 .shelf-reveal::after {
   background:
-    linear-gradient(90deg, rgba(1, 66, 53, 0.78), rgba(1, 66, 53, 0.2) 48%, rgba(31, 26, 22, 0.2)),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.46));
+    linear-gradient(90deg, rgba(1, 66, 53, 0.72) 0%, rgba(1, 66, 53, 0.28) 36%, rgba(1, 66, 53, 0) 68%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.2));
   content: "";
   inset: 0;
   position: absolute;
@@ -459,8 +524,8 @@ button:focus-visible {
 
 .tea-table::after {
   background:
-    linear-gradient(90deg, rgba(1, 66, 53, 0.8), rgba(1, 66, 53, 0.24)),
-    linear-gradient(0deg, rgba(0, 0, 0, 0.48), transparent 70%);
+    linear-gradient(90deg, rgba(31, 26, 22, 0.72) 0%, rgba(31, 26, 22, 0.34) 38%, rgba(31, 26, 22, 0) 72%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.3), transparent 70%);
   z-index: 1;
 }
 
