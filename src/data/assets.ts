@@ -39,4 +39,40 @@ export const homeAssets = {
     src: "/images/teaware-shelves.jpg",
     alt: "Shelves of teaware, bowls, glassware, and teapots in the shop.",
   },
+  journeyLeafSource: {
+    src: "/tea-journey/leaf/camellia-sinensis-koehler-source.jpg",
+    alt: "Historical botanical illustration of Camellia sinensis tea leaves and flowers.",
+  },
+  journeyLeafA: {
+    src: "/tea-journey/leaf/leaf-variant-a.webp",
+    alt: "",
+  },
+  journeyLeafB: {
+    src: "/tea-journey/leaf/leaf-variant-b.webp",
+    alt: "",
+  },
+  journeyLeafC: {
+    src: "/tea-journey/leaf/leaf-variant-c.webp",
+    alt: "",
+  },
+  journeyStorageTin: {
+    src: "/tea-journey/storage/actual-black-tea-tin.webp",
+    alt: "Actual black tea storage tin photographed inside The Antwerp Tea Party.",
+  },
+  journeyShelf: {
+    src: "/tea-journey/shelf/shelf-reveal-warm.webp",
+    alt: "Wooden shelves filled with silver tea tins inside The Antwerp Tea Party.",
+  },
+  journeyBrewingTeapot: {
+    src: "/tea-journey/brewing/porcelain-teapot-cup.webp",
+    alt: "Porcelain teapot and cup displayed inside The Antwerp Tea Party.",
+  },
+  journeyBrewingDisplay: {
+    src: "/tea-journey/brewing/teapot-table-display.webp",
+    alt: "Colorful teapots and black tea tins displayed on a table in the shop.",
+  },
+  journeyLounge: {
+    src: "/tea-journey/lounge/lounge-chairs-warm.webp",
+    alt: "Warm leather chairs and a small table inside The Antwerp Tea Party.",
+  },
 };

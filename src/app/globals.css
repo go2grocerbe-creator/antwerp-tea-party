@@ -108,10 +108,10 @@ button:focus-visible {
 
 .origin-journey {
   background:
-    linear-gradient(rgba(1, 66, 53, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(1, 66, 53, 0.026) 1px, transparent 1px),
+    radial-gradient(circle at 28% 20%, rgba(164, 95, 83, 0.11), transparent 30%),
+    radial-gradient(circle at 76% 78%, rgba(1, 66, 53, 0.08), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), rgba(255, 255, 255, 0)),
     var(--parchment);
-  background-size: 44px 44px;
   min-height: 100vh;
 }
 
@@ -125,16 +125,12 @@ button:focus-visible {
 }
 
 .origin-journey__stage::before {
-  border: 1px solid rgba(1, 66, 53, 0.1);
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.48), transparent 67%);
   content: "";
-  height: min(72vh, 620px);
-  left: 50%;
-  opacity: 0.55;
+  inset: 8vh 8vw;
+  opacity: 0.72;
   pointer-events: none;
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%) rotate(-5deg);
-  width: min(72vw, 760px);
   z-index: 1;
 }
 
@@ -156,12 +152,13 @@ button:focus-visible {
 }
 
 .journey-leaf {
-  filter: drop-shadow(0 18px 22px rgba(1, 66, 53, 0.18));
-  height: clamp(142px, 19vw, 250px);
+  filter: drop-shadow(0 20px 22px rgba(1, 66, 53, 0.14));
+  height: clamp(120px, 18vw, 232px);
   left: calc(50% - clamp(71px, 9.5vw, 125px));
+  object-fit: contain;
   position: absolute;
   top: calc(50% - clamp(71px, 9.5vw, 125px));
-  transform-origin: 50% 82%;
+  transform-origin: 50% 72%;
   width: auto;
   z-index: 9;
 }
@@ -235,23 +232,28 @@ button:focus-visible {
 }
 
 .origin-label {
-  border-top: 1px solid rgba(1, 66, 53, 0.24);
+  align-items: center;
   color: var(--green);
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.25rem, 1.9vw, 1.9rem);
+  display: inline-flex;
+  font-size: clamp(0.72rem, 1vw, 0.88rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
   opacity: 0;
-  padding-top: 10px;
   position: absolute;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-.origin-label::after {
-  background: rgba(164, 95, 83, 0.36);
+.origin-label::before {
+  background: var(--clay);
+  border: 3px solid rgba(253, 248, 238, 0.92);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(31, 26, 22, 0.14);
   content: "";
-  height: 1px;
-  position: absolute;
-  top: -1px;
-  width: clamp(32px, 5vw, 70px);
+  height: 12px;
+  margin-right: 9px;
+  width: 12px;
 }
 
 .origin-one {
@@ -297,6 +299,27 @@ button:focus-visible {
   z-index: 9;
 }
 
+.tin-photo {
+  filter: drop-shadow(0 30px 36px rgba(31, 26, 22, 0.28));
+}
+
+.tin-photo img {
+  object-fit: contain;
+}
+
+.tin-photo-rim {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  border-radius: 999px;
+  height: 34%;
+  left: 20%;
+  opacity: 0.42;
+  pointer-events: none;
+  position: absolute;
+  top: 5%;
+  transform: rotate(-5deg);
+  width: 42%;
+}
+
 .storage-tin {
   z-index: 10;
 }
@@ -308,104 +331,6 @@ button:focus-visible {
   z-index: 11;
 }
 
-.tin-back-rim,
-.tin-mouth,
-.tin-front-rim {
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-}
-
-.tin-back-rim {
-  background: linear-gradient(180deg, #15120f, #050505);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
-  box-shadow: inset 0 16px 18px rgba(255, 255, 255, 0.04);
-  height: 27%;
-  top: 0;
-  width: 88%;
-  z-index: 4;
-}
-
-.tin-mouth {
-  background: radial-gradient(ellipse at 50% 48%, #020202 0 56%, #111 57% 67%, rgba(17, 17, 17, 0) 68%);
-  border-radius: 50%;
-  height: 28%;
-  opacity: 0;
-  top: 1%;
-  width: 84%;
-  z-index: 4;
-}
-
-.tin-body {
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0) 18% 76%, rgba(255, 255, 255, 0.1)),
-    linear-gradient(180deg, #171411 0%, #080808 42%, #11100e 100%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0 0 9% 9% / 0 0 5% 5%;
-  box-shadow: var(--shadow);
-  clip-path: polygon(7% 12%, 93% 12%, 84% 100%, 16% 100%);
-  height: 86%;
-  left: 50%;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  top: 13%;
-  transform: translateX(-50%);
-  width: 86%;
-  z-index: 2;
-}
-
-.tin-body::before {
-  background:
-    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 18px);
-  content: "";
-  inset: 0;
-  position: absolute;
-}
-
-.tin-body::after {
-  background: rgba(0, 0, 0, 0.34);
-  border-radius: 50%;
-  bottom: -7%;
-  content: "";
-  height: 16%;
-  left: 12%;
-  position: absolute;
-  right: 12%;
-}
-
-.tin-front-rim {
-  background: linear-gradient(180deg, #22201c, #050505 55%, #191715);
-  border-radius: 50%;
-  box-shadow:
-    inset 0 -8px 16px rgba(0, 0, 0, 0.6),
-    0 10px 18px rgba(0, 0, 0, 0.24);
-  height: 25%;
-  top: 4%;
-  width: 88%;
-  z-index: 11;
-}
-
-.tin-front-rim::before {
-  background: radial-gradient(ellipse at 50% 42%, #030303 0 57%, rgba(3, 3, 3, 0) 58%);
-  border-radius: 50%;
-  content: "";
-  inset: 13% 6% 25%;
-  position: absolute;
-}
-
-.tin-front-rim::after {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
-  content: "";
-  height: 1px;
-  left: 16%;
-  position: absolute;
-  right: 16%;
-  top: 54%;
-}
-
 .shop-story__image::after,
 .tea-table::after,
 .path-panel__image::after {
@@ -414,11 +339,6 @@ button:focus-visible {
   inset: 0;
   pointer-events: none;
   position: absolute;
-}
-
-.tin-scene .tin-mouth,
-.tin-scene .tin-body {
-  opacity: 1;
 }
 
 .story-copy {
@@ -483,8 +403,8 @@ button:focus-visible {
 .brewing-layer {
   align-items: center;
   background:
-    radial-gradient(circle at 60% 58%, rgba(209, 171, 133, 0.25), transparent 30%),
-    linear-gradient(135deg, #f5eadc, #efe0cf 48%, #f8f2e9);
+    radial-gradient(circle at 30% 36%, rgba(164, 95, 83, 0.13), transparent 32%),
+    linear-gradient(135deg, #f7efe3, #efe0cf 52%, #faf6ec);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.7fr);
   padding: clamp(70px, 9vw, 126px) clamp(18px, 7vw, 96px);
@@ -492,117 +412,72 @@ button:focus-visible {
 }
 
 .brew-visual {
-  aspect-ratio: 1.15 / 1;
+  aspect-ratio: 1.05 / 1;
   margin-inline: auto;
   max-width: 680px;
   position: relative;
   width: min(62vw, 680px);
 }
 
-.kettle {
-  height: 56%;
-  left: 13%;
+.brew-photo {
+  box-shadow: 0 34px 70px rgba(31, 26, 22, 0.22);
+  inset: 2% 18% 6% 4%;
+  overflow: hidden;
   position: absolute;
-  top: 25%;
-  width: 54%;
 }
 
-.kettle-body {
+.brew-photo img,
+.brew-detail-photo img {
+  object-fit: cover;
+}
+
+.brew-photo::after {
   background:
-    linear-gradient(105deg, rgba(255, 255, 255, 0.42), transparent 28%),
-    linear-gradient(180deg, #ded3c2, #b9aa96);
-  border: 1px solid rgba(31, 26, 22, 0.18);
-  border-radius: 48% 48% 42% 42%;
-  box-shadow: 0 28px 54px rgba(31, 26, 22, 0.18);
-  inset: 18% 12% 0;
-  position: absolute;
-}
-
-.kettle-handle {
-  border: clamp(8px, 1.4vw, 14px) solid rgba(1, 66, 53, 0.72);
-  border-bottom-color: transparent;
-  border-radius: 50% 50% 42% 42%;
-  height: 55%;
-  left: 16%;
-  position: absolute;
-  top: 0;
-  width: 48%;
-}
-
-.kettle-spout {
-  border-bottom: clamp(18px, 3vw, 36px) solid transparent;
-  border-left: clamp(74px, 10vw, 124px) solid #b9aa96;
-  border-top: clamp(18px, 3vw, 36px) solid transparent;
-  height: 0;
-  left: 67%;
-  position: absolute;
-  top: 42%;
-  transform: rotate(-14deg);
-  width: 0;
-}
-
-.cup {
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.56), rgba(255, 255, 255, 0.12)),
-    #f7f0e7;
-  border: 1px solid rgba(31, 26, 22, 0.16);
-  border-radius: 0 0 45% 45% / 0 0 30% 30%;
-  bottom: 8%;
-  box-shadow: 0 20px 42px rgba(31, 26, 22, 0.13);
-  height: 24%;
-  left: 55%;
-  position: absolute;
-  width: 26%;
-}
-
-.cup::before {
-  background: radial-gradient(ellipse, #8d5a38 0 58%, rgba(141, 90, 56, 0) 60%);
-  border: 1px solid rgba(31, 26, 22, 0.12);
-  border-radius: 50%;
+    linear-gradient(90deg, rgba(1, 66, 53, 0.24), transparent 36%),
+    linear-gradient(180deg, transparent 55%, rgba(31, 26, 22, 0.22));
   content: "";
-  height: 28%;
-  left: 3%;
+  inset: 0;
   position: absolute;
-  top: -13%;
-  width: 94%;
 }
 
-.cup::after {
-  border: 8px solid #f7f0e7;
-  border-left: 0;
-  border-radius: 0 50% 50% 0;
-  content: "";
-  height: 42%;
+.brew-detail-photo {
+  border: 8px solid rgba(253, 248, 238, 0.72);
+  box-shadow: 0 24px 50px rgba(31, 26, 22, 0.22);
+  height: 35%;
+  overflow: hidden;
   position: absolute;
-  right: -20%;
-  top: 24%;
-  width: 22%;
+  right: 2%;
+  top: 58%;
+  transform: rotate(3deg);
+  width: 34%;
 }
 
 .brew-leaf {
-  height: clamp(74px, 10vw, 116px);
-  left: 55%;
+  filter: drop-shadow(0 12px 16px rgba(1, 66, 53, 0.16));
+  height: auto;
+  left: 60%;
+  object-fit: contain;
   position: absolute;
-  top: 30%;
-  width: auto;
+  top: 18%;
+  width: clamp(112px, 14vw, 172px);
   z-index: 3;
 }
 
 .steam {
-  height: 54%;
-  left: 48%;
+  height: 58%;
+  left: 40%;
   overflow: visible;
   position: absolute;
-  top: 4%;
+  top: 0;
   width: 34%;
   z-index: 4;
 }
 
 .steam-line {
   fill: none;
-  stroke: rgba(1, 66, 53, 0.34);
+  stroke: rgba(253, 248, 238, 0.72);
   stroke-linecap: round;
-  stroke-width: 5;
+  stroke-width: 6;
 }
 
 .brewing-copy {

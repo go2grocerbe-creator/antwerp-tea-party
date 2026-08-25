@@ -11,22 +11,22 @@ import { site } from "@/data/site";
 gsap.registerPlugin(ScrollTrigger);
 
 const leaves = [
-  { className: "leaf-a" },
-  { className: "leaf-b" },
-  { className: "leaf-c" },
-  { className: "leaf-d" },
-  { className: "leaf-e" },
-  { className: "leaf-f" },
+  { className: "leaf-a", src: homeAssets.journeyLeafA.src },
+  { className: "leaf-b", src: homeAssets.journeyLeafB.src },
+  { className: "leaf-c", src: homeAssets.journeyLeafC.src },
+  { className: "leaf-d", src: homeAssets.journeyLeafA.src },
+  { className: "leaf-e", src: homeAssets.journeyLeafB.src },
+  { className: "leaf-f", src: homeAssets.journeyLeafC.src },
 ];
 
-function JourneyLeaf({ className }: { className: string }) {
+function JourneyLeaf({ className, src }: { className: string; src: string }) {
   return (
     <Image
       className={`journey-leaf ${className}`}
-      src="/illustrations/tea-leaf.svg"
+      src={src}
       alt=""
-      width={130}
-      height={212}
+      width={420}
+      height={460}
       priority
     />
   );
@@ -34,11 +34,9 @@ function JourneyLeaf({ className }: { className: string }) {
 
 function TinCanister({ className = "" }: { className?: string }) {
   return (
-    <div className={`tin-scene ${className}`} aria-hidden="true">
-      <div className="tin-back-rim" />
-      <div className="tin-mouth" />
-      <div className="tin-body" />
-      <div className="tin-front-rim" />
+    <div className={`tin-scene tin-photo ${className}`} aria-hidden="true">
+      <Image src={homeAssets.journeyStorageTin.src} alt="" fill sizes="(max-width: 768px) 58vw, 31vw" />
+      <span className="tin-photo-rim" />
     </div>
   );
 }
@@ -215,7 +213,7 @@ export function OriginJourney() {
 
         <div className="leaf-field" aria-hidden="true">
           {leaves.map((leaf) => (
-            <JourneyLeaf className={leaf.className} key={leaf.className} />
+            <JourneyLeaf className={leaf.className} key={leaf.className} src={leaf.src} />
           ))}
         </div>
 
@@ -244,8 +242,8 @@ export function OriginJourney() {
 
         <div className="shelf-reveal">
           <Image
-            src={homeAssets.shelfReveal.src}
-            alt={homeAssets.shelfReveal.alt}
+            src={homeAssets.journeyShelf.src}
+            alt={homeAssets.journeyShelf.alt}
             fill
             priority
             sizes="100vw"
@@ -264,20 +262,18 @@ export function OriginJourney() {
 
         <div className="brewing-layer" aria-labelledby="brewing-title">
           <div className="brew-visual" aria-hidden="true">
-            <div className="kettle">
-              <span className="kettle-handle" />
-              <span className="kettle-spout" />
-              <span className="kettle-body" />
+            <div className="brew-photo">
+              <Image src={homeAssets.journeyBrewingTeapot.src} alt="" fill sizes="(max-width: 768px) 92vw, 62vw" />
             </div>
-            <div className="cup">
-              <span className="cup-tea" />
+            <div className="brew-detail-photo">
+              <Image src={homeAssets.journeyBrewingDisplay.src} alt="" fill sizes="(max-width: 768px) 36vw, 18vw" />
             </div>
             <Image
               className="brew-leaf"
-              src="/illustrations/tea-leaf.svg"
+              src={homeAssets.journeyLeafC.src}
               alt=""
-              width={70}
-              height={115}
+              width={395}
+              height={235}
             />
             <svg className="steam" viewBox="0 0 220 240">
               <path className="steam-line steam-one" d="M70 214 C44 174 93 153 68 116 C43 79 83 62 78 25" />
@@ -286,13 +282,13 @@ export function OriginJourney() {
             </svg>
           </div>
           <div className="brewing-copy story-copy">
-            <h2>Prepared slowly.</h2>
+            <h2 id="brewing-title">Prepared slowly.</h2>
             <p>Warmth, water, time.</p>
           </div>
         </div>
 
         <div className="lounge-layer" aria-labelledby="lounge-title">
-          <Image src={homeAssets.chairs.src} alt={homeAssets.chairs.alt} fill sizes="100vw" />
+          <Image src={homeAssets.journeyLounge.src} alt={homeAssets.journeyLounge.alt} fill sizes="100vw" />
           <div className="lounge-copy">
             <p className="eyebrow">Sharing</p>
             <h2 id="lounge-title">Some teas are better shared.</h2>
