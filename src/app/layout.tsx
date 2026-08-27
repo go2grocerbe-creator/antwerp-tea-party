@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Lato } from "next/font/google";
+import { headers } from "next/headers";
 import type { ReactNode } from "react";
 import { site } from "@/data/site";
+import { defaultLocale, isLocale } from "@/i18n";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -39,9 +41,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  const requestHeaders = await headers();
+  const localeParam = requestHeaders.get("x-locale") ?? defaultLocale;
+  const locale = isLocale(localeParam) ? localeParam : defaultLocale;
+
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable}`}>
+    <html lang={locale} className={`${display.variable} ${sans.variable}`}>
       <body>{children}</body>
     </html>
   );

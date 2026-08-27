@@ -1,11 +1,12 @@
 import { site } from "@/data/site";
+import type { Dictionary } from "@/i18n";
 
-export function SiteFooter() {
+export function SiteFooter({ dictionary }: { dictionary: Dictionary }) {
   return (
     <footer className="site-footer" id="visit" aria-labelledby="visit-title">
       <div>
-        <p className="eyebrow">Visit</p>
-        <h2 id="visit-title">Come find your tea.</h2>
+        <p className="eyebrow">{dictionary.footer.eyebrow}</p>
+        <h2 id="visit-title">{dictionary.footer.title}</h2>
       </div>
       <address>
         <strong>{site.address.street}</strong>
@@ -13,20 +14,20 @@ export function SiteFooter() {
       </address>
       <dl className="footer-list">
         <div>
-          <dt>Opening hours</dt>
-          <dd>{site.contact.hours}</dd>
+          <dt>{dictionary.footer.openingHours}</dt>
+          <dd>{dictionary.footer.hoursValue}</dd>
         </div>
         <div>
-          <dt>Telephone</dt>
-          <dd>{site.contact.phone}</dd>
+          <dt>{dictionary.footer.telephone}</dt>
+          <dd>{dictionary.footer.phoneValue}</dd>
         </div>
         <div>
-          <dt>Email</dt>
-          <dd>{site.contact.email}</dd>
+          <dt>{dictionary.footer.email}</dt>
+          <dd>{dictionary.footer.emailValue}</dd>
         </div>
         <div>
-          <dt>Instagram</dt>
-          <dd>{site.contact.instagram}</dd>
+          <dt>{dictionary.footer.instagram}</dt>
+          <dd>{dictionary.footer.instagramValue}</dd>
         </div>
       </dl>
       <p className="philosophy">{site.philosophy}</p>

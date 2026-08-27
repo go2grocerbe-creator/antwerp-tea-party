@@ -5,8 +5,8 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { homeAssets } from "@/data/assets";
-import { prototypeOrigins } from "@/data/origins";
-import { site } from "@/data/site";
+import { getOrigins } from "@/data/origins";
+import { localePath, type Dictionary, type Locale } from "@/i18n";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,8 +46,9 @@ function TinCanister({ className = "" }: { className?: string }) {
   );
 }
 
-export function OriginJourney() {
+export function OriginJourney({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const origins = getOrigins(locale);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -195,9 +196,9 @@ export function OriginJourney() {
     <section className="origin-journey" id="top" ref={sectionRef} aria-labelledby="home-title">
       <div className="origin-journey__stage">
         <div className="origin-title">
-          <p className="eyebrow">Leaf · origin · storage · cup</p>
-          <h1 id="home-title">Every cup begins somewhere.</h1>
-          <p>Follow the leaf into the shop, the kettle, and the quiet of the table.</p>
+          <p className="eyebrow">{dictionary.hero.eyebrow}</p>
+          <h1 id="home-title">{dictionary.hero.headline}</h1>
+          <p>{dictionary.hero.body}</p>
         </div>
 
         <div className="hero-cup" aria-hidden="true">
@@ -211,7 +212,7 @@ export function OriginJourney() {
         </div>
 
         <div className="hero-scroll-cue" aria-hidden="true">
-          <span>Scroll to follow the journey</span>
+          <span>{dictionary.hero.scroll}</span>
           <i />
         </div>
 
@@ -237,7 +238,7 @@ export function OriginJourney() {
           ))}
         </div>
 
-        <div className="origin-map" aria-label="Tea sourcing locations">
+        <div className="origin-map" aria-label={dictionary.journey.originsLabel}>
           <svg className="origin-paths" viewBox="0 0 100 100" aria-hidden="true">
             <path className="origin-path" pathLength="1" d="M50 50 C40 35 34 27 25 22" />
             <path className="origin-path" pathLength="1" d="M50 50 C61 34 69 26 78 23" />
@@ -246,7 +247,7 @@ export function OriginJourney() {
             <path className="origin-path" pathLength="1" d="M50 50 C43 68 39 78 35 88" />
             <path className="origin-path" pathLength="1" d="M50 50 C58 68 63 78 68 88" />
           </svg>
-          {prototypeOrigins.map((origin) => (
+          {origins.map((origin) => (
             <span className={`origin-label ${origin.className}`} key={origin.name}>
               {origin.name}
             </span>
@@ -256,8 +257,8 @@ export function OriginJourney() {
         <TinCanister className="storage-tin" />
 
         <div className="tin-copy story-copy">
-          <h2>Stored with care.</h2>
-          <p>Selected with knowledge.</p>
+          <h2>{dictionary.journey.tinTitle}</h2>
+          <p>{dictionary.journey.tinBody}</p>
         </div>
 
         <div className="shelf-reveal">
@@ -271,10 +272,10 @@ export function OriginJourney() {
         </div>
 
         <div className="shelf-copy story-copy">
-          <h2>Hundreds of teas. One place to discover them.</h2>
-          <p>Find the tea that feels like yours.</p>
-          <a className="button" href={site.ctas.exploreTeas}>
-            Explore the teas
+          <h2>{dictionary.journey.shelfTitle}</h2>
+          <p>{dictionary.journey.shelfBody}</p>
+          <a className="button" href={localePath(locale, "#teas")}>
+            {dictionary.journey.shelfCta}
           </a>
         </div>
       </div>

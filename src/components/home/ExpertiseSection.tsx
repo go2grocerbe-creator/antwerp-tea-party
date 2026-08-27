@@ -1,17 +1,15 @@
 import Image from "next/image";
 import { homeAssets } from "@/data/assets";
+import type { Dictionary } from "@/i18n";
 
-export function ExpertiseSection() {
+export function ExpertiseSection({ dictionary }: { dictionary: Dictionary }) {
   return (
     <section className="expertise" id="about" aria-labelledby="expertise-title">
       <div className="expertise__copy">
-        <p className="eyebrow">Knowledge</p>
-        <h2 id="expertise-title">Tea chosen with knowledge.</h2>
+        <p className="eyebrow">{dictionary.knowledge.eyebrow}</p>
+        <h2 id="expertise-title">{dictionary.knowledge.title}</h2>
         {/* TODO: replace with owner-selecting-tea photography when available. */}
-        <p>
-          A good tea shop is not only about selection. It is about helping someone
-          discover what suits them.
-        </p>
+        <p>{dictionary.knowledge.body}</p>
       </div>
       <div className="detail-grid" aria-label="Shop details">
         <figure>

@@ -1,9 +1,8 @@
 import Image from "next/image";
 import { homeAssets } from "@/data/assets";
+import type { Dictionary } from "@/i18n";
 
-const categories = ["Rare teas", "Pu Erh", "Matcha", "Teaware", "Gifts"];
-
-export function ShopStory() {
+export function ShopStory({ dictionary }: { dictionary: Dictionary }) {
   return (
     <section className="shop-story" id="teas" aria-labelledby="shop-story-title">
       <div className="shop-story__image">
@@ -15,14 +14,11 @@ export function ShopStory() {
         />
       </div>
       <div className="shop-story__copy">
-        <p className="eyebrow">Inside the shop</p>
-        <h2 id="shop-story-title">A tea shop built for curiosity.</h2>
-        <p>
-          Ask questions. Smell the leaves. Discover something unfamiliar. Or simply find
-          the tea you already love.
-        </p>
+        <p className="eyebrow">{dictionary.shop.eyebrow}</p>
+        <h2 id="shop-story-title">{dictionary.shop.title}</h2>
+        <p>{dictionary.shop.body}</p>
         <div className="category-line" aria-label="Shop categories">
-          {categories.map((category) => (
+          {dictionary.shop.categories.map((category) => (
             <span key={category}>{category}</span>
           ))}
         </div>
