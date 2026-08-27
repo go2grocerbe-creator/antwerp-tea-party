@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { homeAssets } from "@/data/assets";
@@ -50,35 +50,38 @@ export function OriginJourney({ locale, dictionary }: { locale: Locale; dictiona
   const sectionRef = useRef<HTMLElement>(null);
   const origins = getOrigins(locale);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const labels = gsap.utils.toArray<HTMLElement>(".origin-label");
-    const journeyLeaves = gsap.utils.toArray<HTMLElement>(".journey-leaf");
-    const originPaths = gsap.utils.toArray<SVGPathElement>(".origin-path");
-
-    if (reduceMotion) {
-      gsap.set(
-        [
-          ".origin-title",
-          ".origin-map",
-          ".tin-scene",
-          ".shelf-reveal",
-          ".shelf-copy",
-          ".teapot-layer",
-          ".hero-cup",
-          ".hero-scroll-cue",
-          ".journey-leaf",
-        ],
-        { autoAlpha: 1 },
-      );
-      gsap.set(labels, { autoAlpha: 1 });
-      return;
-    }
 
     const ctx = gsap.context(() => {
+      const labels = gsap.utils.toArray<HTMLElement>(".origin-label");
+      const journeyLeaves = gsap.utils.toArray<HTMLElement>(".journey-leaf");
+      const originPaths = gsap.utils.toArray<SVGPathElement>(".origin-path");
+
+      gsap.set(journeyLeaves, { autoAlpha: 0, x: 0, y: 0, scale: 0.58, rotate: -8 });
+
+      if (reduceMotion) {
+        gsap.set(
+          [
+            ".origin-title",
+            ".origin-map",
+            ".tin-scene",
+            ".shelf-reveal",
+            ".shelf-copy",
+            ".teapot-layer",
+            ".hero-cup",
+            ".hero-scroll-cue",
+            ".journey-leaf",
+          ],
+          { autoAlpha: 1 },
+        );
+        gsap.set(labels, { autoAlpha: 1 });
+        return;
+      }
+
       gsap.set([".teapot-layer", ".origin-map", ".tin-scene", ".tin-copy", ".shelf-reveal", ".shelf-copy"], {
         autoAlpha: 0,
       });
