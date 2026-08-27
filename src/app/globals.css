@@ -757,10 +757,10 @@ summary:focus-visible {
   filter: drop-shadow(0 26px 34px rgba(31, 26, 22, 0.16));
   grid-column: 2;
   justify-self: end;
-  max-width: 560px;
+  max-width: 650px;
   opacity: 0.96;
   position: relative;
-  width: min(34vw, 560px);
+  width: min(40vw, 650px);
   z-index: 1;
 }
 
@@ -1053,7 +1053,7 @@ address strong {
     justify-self: end;
     margin-bottom: 260px;
     opacity: 0.86;
-    width: min(78vw, 340px);
+    width: min(84vw, 380px);
   }
 
   .tea-table__copy {
@@ -1159,7 +1159,7 @@ address strong {
 
   .tea-table__chair {
     margin-bottom: 310px;
-    width: min(82vw, 300px);
+    width: min(88vw, 330px);
   }
 
 }

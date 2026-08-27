@@ -6,7 +6,7 @@ export function TeaTableSection({ locale, dictionary }: { locale: Locale; dictio
   return (
     <section className="tea-table" id="tastings" aria-labelledby="tea-table-title">
       <div className="tea-table__chair" aria-hidden="true">
-        <Image src={homeAssets.isolatedChair.src} alt="" fill sizes="(max-width: 768px) 78vw, 34vw" />
+        <Image src={homeAssets.isolatedChair.src} alt="" fill sizes="(max-width: 768px) 84vw, 40vw" />
       </div>
       <div className="tea-table__copy">
         <p className="eyebrow">{dictionary.table.eyebrow}</p>
