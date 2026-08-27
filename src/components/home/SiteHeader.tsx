@@ -3,8 +3,8 @@ import { localePath, locales, type Dictionary, type Locale } from "@/i18n";
 export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const navigationItems = [
     { label: dictionary.navigation.teas, href: "#teas" },
-    { label: dictionary.navigation.tastings, href: "#tastings" },
     { label: dictionary.navigation.about, href: "#about" },
+    { label: dictionary.navigation.tastings, href: "#tastings" },
     { label: dictionary.navigation.visit, href: "#visit" },
   ];
 

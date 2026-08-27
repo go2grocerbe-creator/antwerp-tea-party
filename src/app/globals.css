@@ -76,10 +76,8 @@ button:focus-visible {
 
 .site-header__controls {
   align-items: center;
-  background: rgba(251, 247, 238, 0.78);
-  border: 1px solid rgba(1, 66, 53, 0.14);
-  backdrop-filter: blur(12px) saturate(135%);
   display: flex;
+  gap: clamp(10px, 1.3vw, 18px);
 }
 
 .wordmark {
@@ -94,9 +92,12 @@ button:focus-visible {
 
 .site-nav {
   align-items: center;
+  background: rgba(251, 247, 238, 0.78);
+  border: 1px solid rgba(1, 66, 53, 0.14);
+  backdrop-filter: blur(12px) saturate(135%);
   display: flex;
   gap: clamp(14px, 2vw, 28px);
-  padding: 0 12px 0 18px;
+  padding: 0 18px;
 }
 
 .site-nav a,
@@ -120,7 +121,9 @@ button:focus-visible {
 
 .language-switcher {
   align-items: center;
-  border-left: 1px solid rgba(1, 66, 53, 0.12);
+  background: rgba(251, 247, 238, 0.78);
+  border: 1px solid rgba(1, 66, 53, 0.14);
+  backdrop-filter: blur(12px) saturate(135%);
   display: flex;
   gap: 2px;
   padding: 4px;
@@ -879,8 +882,9 @@ address strong {
   }
 
   .site-header__controls {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .site-nav {
@@ -894,13 +898,10 @@ address strong {
   }
 
   .language-switcher {
-    border-left: 0;
-    border-top: 1px solid rgba(1, 66, 53, 0.12);
-    width: 100%;
+    width: auto;
   }
 
   .language-switcher a {
-    flex: 1;
     min-width: 38px;
   }
 
@@ -1121,7 +1122,8 @@ address strong {
 }
 
 @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
-  .site-header__controls {
+  .site-nav,
+  .language-switcher {
     background: var(--paper);
     backdrop-filter: none;
     border-color: rgba(1, 66, 53, 0.32);
