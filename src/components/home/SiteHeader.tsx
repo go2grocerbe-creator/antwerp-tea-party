@@ -22,19 +22,22 @@ export function SiteHeader({ locale, dictionary }: { locale: Locale; dictionary:
             </a>
           ))}
         </nav>
-        <nav className="language-switcher" aria-label={dictionary.language.label}>
-          {locales.map((item) => (
-            <a
-              aria-current={item === locale ? "page" : undefined}
-              aria-label={dictionary.language[item]}
-              className={item === locale ? "is-active" : undefined}
-              href={localePath(item)}
-              key={item}
-            >
-              {item.toUpperCase()}
-            </a>
-          ))}
-        </nav>
+        <details className="language-switcher" aria-label={dictionary.language.label}>
+          <summary aria-label={dictionary.language[locale]}>{locale.toUpperCase()}</summary>
+          <nav className="language-switcher__menu" aria-label={dictionary.language.label}>
+            {locales.map((item) => (
+              <a
+                aria-current={item === locale ? "page" : undefined}
+                aria-label={dictionary.language[item]}
+                className={item === locale ? "is-active" : undefined}
+                href={localePath(item)}
+                key={item}
+              >
+                {item.toUpperCase()}
+              </a>
+            ))}
+          </nav>
+        </details>
       </div>
     </header>
   );

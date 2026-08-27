@@ -52,7 +52,8 @@ button {
 }
 
 a:focus-visible,
-button:focus-visible {
+button:focus-visible,
+summary:focus-visible {
   outline: 2px solid var(--clay);
   outline-offset: 4px;
 }
@@ -101,6 +102,7 @@ button:focus-visible {
 }
 
 .site-nav a,
+.language-switcher summary,
 .language-switcher a,
 .eyebrow {
   font-size: 0.72rem;
@@ -109,6 +111,7 @@ button:focus-visible {
 }
 
 .site-nav a,
+.language-switcher summary,
 .language-switcher a {
   color: var(--green);
   min-height: 40px;
@@ -125,10 +128,11 @@ button:focus-visible {
   border: 1px solid rgba(1, 66, 53, 0.14);
   backdrop-filter: blur(12px) saturate(135%);
   display: flex;
-  gap: 2px;
   padding: 4px;
+  position: relative;
 }
 
+.language-switcher summary,
 .language-switcher a {
   align-items: center;
   display: inline-flex;
@@ -137,6 +141,40 @@ button:focus-visible {
   min-width: 42px;
   padding-inline: 9px;
   transition: background-color 140ms ease, color 140ms ease, transform 100ms ease;
+}
+
+.language-switcher summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.language-switcher summary::-webkit-details-marker {
+  display: none;
+}
+
+.language-switcher summary::after {
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid currentColor;
+  content: "";
+  margin-left: 8px;
+  transition: transform 140ms ease;
+}
+
+.language-switcher[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.language-switcher__menu {
+  background: var(--paper);
+  border: 1px solid rgba(1, 66, 53, 0.14);
+  display: grid;
+  left: -1px;
+  padding: 4px;
+  position: absolute;
+  right: -1px;
+  top: calc(100% + 6px);
+  z-index: 40;
 }
 
 .language-switcher a.is-active {
@@ -153,12 +191,14 @@ button:focus-visible {
 }
 
 .site-nav a:hover,
+.language-switcher summary:hover,
 .language-switcher a:hover,
 .text-link:hover {
   color: var(--clay);
 }
 
 .site-nav a:active,
+.language-switcher summary:active,
 .language-switcher a:active,
 .wordmark:active,
 .button:active,
@@ -901,6 +941,7 @@ address strong {
     width: auto;
   }
 
+  .language-switcher summary,
   .language-switcher a {
     min-width: 38px;
   }
