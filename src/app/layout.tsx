@@ -51,7 +51,7 @@ export default async function RootLayout({
   const locale = isLocale(localeParam) ? localeParam : defaultLocale;
 
   return (
-    <html lang={locale} className={`${display.variable} ${sans.variable}`}>
+    <html lang={locale} className={`${display.variable} ${sans.variable}`} data-scroll-behavior="smooth">
       <body>{children}</body>
     </html>
   );

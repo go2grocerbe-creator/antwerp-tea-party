@@ -152,7 +152,9 @@ export function OriginJourney({ locale, dictionary }: { locale: Locale; dictiona
           scrollTrigger: {
             trigger: section,
             start: "top top",
-            end: "+=450%",
+            // Shorter than the desktop pin (+=560%): mobile users scroll less to see the
+            // same story, so the sequence doesn't trap them in an excessive scroll distance.
+            end: "+=300%",
             scrub: 0.85,
             pin: true,
           },
