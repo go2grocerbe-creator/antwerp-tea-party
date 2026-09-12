@@ -45,6 +45,30 @@ mocked):
 6. `POST /api/webhooks/stripe` with no `stripe-signature` header is rejected (400 or 503,
    never a silent 200).
 
+**`tests/e2e/mobile-motion-journey.spec.ts`** (the dedicated mobile GSAP timeline — see
+`docs/audits/mobile-motion-story-audit.md`; a pin distance is derived from the rendered
+`.pin-spacer` element rather than hardcoded, so retuning the timeline's numbers can't silently
+break these):
+
+7. The animated journey is the default (not the reduced-motion fallback); opening content
+   (headline, cup) is visible immediately at load.
+8. A pinned `ScrollTrigger` exists with a scroll distance in a generous bounded range (catches a
+   runaway or collapsed pin distance without being brittle to minor retuning).
+9. Every key animated element exists: cup, 4 leaves, 4 origin labels, tin, shelf.
+10. Origin labels stay within the viewport at the origins checkpoint.
+11. Text and tin bounding boxes never intersect at the preservation checkpoint, and "Preserved
+    with care" is actually visible there.
+12. Final shelf copy is visible near the end, and scrolling further releases the pin and reaches
+    ordinary homepage content below it.
+13. Scrolling back up restores the origins stage, then the opening stage — reversibility.
+14. No horizontal overflow through the full journey (5 checkpoints each) at all 5 required
+    viewports: 320×568, 375×667, 390×844, 430×932, 768×1024.
+15. Reduced-motion: the static fallback is used, the complete narrative is present, and **no
+    `.pin-spacer` exists at all** (not just visually hidden — no ScrollTrigger pin is created).
+16. Desktop regression: the desktop pinned journey is present and its stage's top edge is within
+    5px of the viewport top — a direct regression guard for a real bug found and fixed this
+    session (see the audit doc "A real bug found and fixed during this pass").
+
 Run it locally:
 
 ```bash

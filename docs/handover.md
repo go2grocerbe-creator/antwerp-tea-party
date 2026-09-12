@@ -4,9 +4,62 @@ Branch: `feat/mobile-commerce-v1` (based on `main` @ `61ca89d`). PR:
 https://github.com/go2grocerbe-creator/antwerp-tea-party/pull/1 (not merged).
 
 Read `docs/architecture.md`, `docs/commerce-architecture.md`, and `docs/product-model.md`
-first — this file is the status summary, those are the reference. This is the **second pass**
-on this branch; the first pass's summary is preserved below under "First pass," with this
-section covering what changed since.
+first — this file is the status summary, those are the reference. This is the **third pass** on
+this branch; the first and second passes' summaries are preserved below, with this section
+covering what changed since.
+
+## Third pass — completed (2026-09-12, later the same day)
+
+- **Restored the cinematic mobile tea journey.** The second pass's static replacement fixed
+  blank-space/overlap defects but removed the site's central scroll-driven storytelling concept.
+  This pass adds a dedicated, purpose-built mobile GSAP timeline (`MobileJourneyAnimated`) —
+  pinned, scrubbed, composed specifically for portrait screens — and keeps the static version
+  only as the `prefers-reduced-motion` fallback. Full design/rationale:
+  `docs/audits/mobile-motion-story-audit.md`.
+- **Found and fixed a real desktop regression** introduced by the second pass: a CSS
+  specificity bug meant the (invisible but space-occupying) mobile tree rendered at desktop
+  widths too, pushing the real desktop journey down by a full viewport height. Caught by the
+  mandatory desktop-regression check this pass required — see
+  `docs/decision-log.md` DEC-T14.
+- Verified via real Chromium screenshots at every required/spot-check mobile viewport
+  (320/375/390/430/768, plus 414 spot-check) and desktop regression (1280/1440), a ~30s
+  Playwright video recording (reviewed via extracted frames) covering forward scroll through
+  the whole journey, release, and partial reverse scroll, and a `prefers-reduced-motion`
+  fallback check.
+- Added 16 new Playwright tests (`tests/e2e/mobile-motion-journey.spec.ts`) — opening content,
+  pin existence/bounded distance, key elements present, origin-label containment, text/tin
+  non-intersection, release + reachability of following content, reverse-scroll restoration, no
+  overflow at all 5 required widths, reduced-motion fallback, desktop regression guard. All
+  pass, alongside the full pre-existing suite (36 passed, 8 skipped as project-restricted
+  duplicates, 0 failed).
+- `npm run lint` / `npm run typecheck` / `npm run build` clean throughout; `npm audit` still 0
+  vulnerabilities (no new dependencies this pass).
+
+## Third pass — verified
+
+- `npm run lint`, `npm run typecheck`, `npm run build` — clean.
+- `npx playwright test` — 36/36 passing (8 skipped, project-restricted duplicates by design).
+- Real Chromium screenshots visually read at every required checkpoint at 390×844 (full
+  forward+backward, 10 checkpoints total including 4 extra targeted ones), 320×568 (opening/
+  origins/preservation), 768×1024 (opening, post-fix), 430×932 (opening), 375×667 and 414×896
+  (one spot-check each), and desktop 1280×800/1440×900 (5-point sweep each, pre- and post- the
+  specificity-bug fix).
+- A Playwright video recording (390×844, ~30s) reviewed via 10 extracted frames spanning the
+  full forward journey, release, and partial reverse — confirmed continuous progression, no
+  blank pauses, smooth release, correct reverse restoration.
+- Reduced-motion fallback confirmed to create zero `.pin-spacer` elements (no pin at all, not
+  just visually hidden).
+
+## Third pass — not done, not blocked — genuine gaps to pick up next
+
+- **iOS Safari was not tested** — every check this pass used Chromium via Playwright. Safari-
+  specific pin/scroll-momentum/viewport-unit behavior is unverified, not confirmed working.
+- Android mobile browsers not tested (Chromium desktop-engine emulation only, throughout).
+- 414×896/430×932 were captured in full (all 6 checkpoints) but only the opening frame was
+  individually read at each — not the same depth as 320/390/768.
+- No physical-device testing was performed.
+- The opening composition's vertical spacing at the 768px end of the mobile range was improved
+  but not further polished.
 
 ## Second pass — completed (2026-09-12)
 

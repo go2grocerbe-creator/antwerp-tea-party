@@ -135,3 +135,19 @@ lint`, `npm run build`, and the full `npx playwright test` suite after each chan
 - iOS Safari-specific rendering — this session used Chromium only throughout.
 - Whether the mobile journey's six-stage pacing *reads well* with Daniele's real photography —
   current images are the pre-existing placeholder/demo assets.
+
+---
+
+# Round 3 — Restoring Motion (2026-09-12, later the same day)
+
+**Round 2's static replacement was subsequently judged insufficient** — it fixed the blank-space
+and overlap defects but removed the cinematic scroll-driven transformation that was the
+homepage's central concept, reducing it to a list of static images. A third pass added a
+dedicated, purpose-built mobile GSAP timeline (kept pinned, but composed and timed specifically
+for portrait screens) and demoted the Round 2 static version to the `prefers-reduced-motion`
+fallback only.
+
+Full detail — desktop timeline inventory, mobile timeline design, phase labels, scroll-distance
+testing, a critical desktop-regression bug found and fixed during this pass, viewport coverage,
+and the motion recording review — is in **`docs/audits/mobile-motion-story-audit.md`**, not
+duplicated here.

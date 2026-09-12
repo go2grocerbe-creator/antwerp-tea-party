@@ -183,3 +183,51 @@ never-trust-the-client posture as the rest of the commerce layer.
 rather than diffed — a documented simplification, fine at a five-to-a-few-dozen-product scale;
 revisit if per-variant history/audit trails become a real requirement (see
 `src/lib/admin/products.ts` `writeVariantsAndImages`).
+
+---
+
+## DEC-T13 — Restored a dedicated, pinned mobile GSAP timeline; demoted the static version to the reduced-motion fallback
+
+**Decision:** `MobileJourneyAnimated` (`src/components/home/OriginJourney.tsx`) replaces the
+Round 2 static `MobileJourneyStatic` as the *default* mobile experience. The static component
+still exists, unchanged in substance, but only renders under `prefers-reduced-motion: reduce`.
+
+**Reason:** Round 2 fixed real defects (blank scroll space, text/artwork overlap) but in doing
+so removed the site's central concept — a continuous, scroll-driven transformation from cup to
+leaves to origins to tin to shop shelf. A static list of six illustrations preserved the
+*information* but not the *storytelling*. The correct fix was never "animation vs. no animation"
+— it was "adapted desktop animation vs. an animation actually designed for portrait screens."
+
+**Consequence:** New CSS architecture (`.m-journey`, `.m-text-zone` / `.m-stage` two-zone
+layout — text and artwork in structurally separate boxes so they can't overlap regardless of
+timing), a new labeled GSAP timeline (`intro` → `cup_exit` → `leaves_emerge` →
+`origins_reveal` → `origins_resolve` → `tin_receive` → `preservation_copy` → `shelf_reveal` →
+`final_copy` → `release`), and 14 new Playwright tests
+(`tests/e2e/mobile-motion-journey.spec.ts`). Full design rationale, the desktop timeline
+inventory it was built to preserve, scroll-distance testing, and viewport coverage:
+`docs/audits/mobile-motion-story-audit.md`.
+
+## DEC-T14 — Fixed a CSS specificity bug that had broken the desktop journey since Round 2
+
+**Decision:** Changed `.journey-mobile-animated-only` / `.journey-mobile-reduced-only` display-
+toggle selectors to compound with their element's own class (e.g.
+`.m-journey.journey-mobile-animated-only`) wherever they need to override that element's own
+unconditional base `display` rule.
+
+**Reason:** `.journey-mobile-animated-only { display: none }` inside `@media (min-width: 769px)`
+and the later, unconditional `.m-journey { display: flex }` base rule had equal specificity
+(one class each); the later-in-file rule (`.m-journey`) won regardless of viewport width. This
+meant the mobile animated tree rendered at desktop widths too — invisible in the sense that its
+own GSAP never initialized there, but still occupying a full extra viewport height above the
+real desktop journey, pushing it down and off-screen. Found via `getBoundingClientRect()` during
+the mandatory desktop-regression check in this pass, not by visual inspection alone (it read as
+"the origins stage is missing," not obviously "there's an invisible extra block above it").
+
+**Consequence:** Desktop journey confirmed working correctly again (re-screenshotted at
+1280×800/1440×900 after the fix). Added a regression test asserting the desktop stage's
+bounding-box top stays within 5px of the viewport top
+(`tests/e2e/mobile-motion-journey.spec.ts` → "desktop pinned journey is present, unchanged, and
+not pushed off-screen") specifically to catch a recurrence of this bug class. The identical
+pattern was already handled correctly for `.origin-journey__stage.journey-desktop-only` in
+Round 2 — this decision generalizes the fix to every display-toggle selector in this section
+rather than leaving the pattern half-applied.
