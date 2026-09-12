@@ -1,8 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
 import { localePath, locales, type Dictionary, type Locale } from "@/i18n";
+
+/** Swaps only the leading /{locale} segment, so switching language keeps the current page. */
+function pathForLocale(pathname: string, target: Locale) {
+  const segments = pathname.split("/");
+  segments[1] = target;
+  return segments.join("/") || `/${target}`;
+}
 
 export function SiteHeader({
   locale,
@@ -14,6 +22,7 @@ export function SiteHeader({
   cartCount?: number;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
   const panelId = useId();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -116,7 +125,7 @@ export function SiteHeader({
                 aria-current={item === locale ? "page" : undefined}
                 aria-label={dictionary.language[item]}
                 className={item === locale ? "is-active" : undefined}
-                href={localePath(item)}
+                href={pathForLocale(pathname, item)}
                 key={item}
               >
                 {item.toUpperCase()}
