@@ -51,10 +51,26 @@ rewrite.
 supported by the type (any `status` value can be set) — the actual lifecycle UI lives in
 whatever commerce backend is connected (Shopify Admin, once set up), not in this codebase.
 
-## Seed data vs. real data
+## Demo catalogue vs. real data
 
-`src/lib/commerce/seed-data.ts` currently holds **five draft placeholder records** ("Tea 01 —
-Product details pending" … "Tea 05"). No real tea names, prices, origins, or stock data were
-found in the repository, `Reference Documents/Photos`, or the Obsidian project memory as of
-2026-09-12 — see `docs/content-intake-template.md` for what's needed from Daniele before these
-can become real, publishable products.
+`src/lib/commerce/seed-data.ts` holds **five generic, published demo teas**: Earl Grey Classic,
+English Breakfast, Green Sencha, Chamomile Blossom, Rooibos Vanilla. No real tea names, prices,
+ingredients, origins, or stock data were found in the repository, `Reference Documents/Photos`,
+or the Obsidian project memory as of 2026-09-12 — so these five are generic, well-known tea
+styles with reasonable demonstration copy/prices/imagery, **not** Daniele's real catalogue:
+
+- `origin` is `null` for all five — no specific origin is claimed.
+- `allergens` is an explicit "to be confirmed — demo product" string for all five, rather than
+  guessed or omitted silently.
+- `caffeineLevel` reflects only the generic, textbook characteristic of the tea type (black tea
+  is generally caffeinated, herbal infusions are not) — not a lab-verified fact about a specific
+  batch.
+- No medical/health claims anywhere.
+- Every page that displays them renders `<DemoCatalogueBanner>`
+  (`src/components/shop/DemoCatalogueBanner.tsx`) in any non-production environment, and those
+  pages are marked `noindex`.
+
+They're marked `status: "published"` (not `draft`) so they're visible on a Vercel preview
+deployment without a `COMMERCE_PREVIEW_TOKEN`, per the brief. Replace each record with real data
+from `docs/content-intake-template.md`, get Daniele's explicit approval, then remove/replace the
+demo banner condition once real production data is in place — see `docs/handover.md`.

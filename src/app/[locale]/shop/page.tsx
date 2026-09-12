@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { DemoCatalogueBanner } from "@/components/shop/DemoCatalogueBanner";
 import { ProductGrid } from "@/components/shop/ProductGrid";
 import { dictionaries, isLocale, localePath, type Locale } from "@/i18n";
 import { getCommerceProvider } from "@/lib/commerce";
+import { isDemoCatalogueEnvironment } from "@/components/shop/DemoCatalogueBanner";
 
 type ShopPageProps = {
   params: Promise<{ locale: string }>;
@@ -18,6 +20,7 @@ export async function generateMetadata({ params }: ShopPageProps): Promise<Metad
     title: `${dictionary.shopPage.title} | ${dictionary.metadata.title}`,
     description: dictionary.shopPage.intro,
     alternates: { canonical: localePath(localeParam, "/shop") },
+    robots: isDemoCatalogueEnvironment() ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -37,6 +40,7 @@ export default async function ShopPage({ params, searchParams }: ShopPageProps) 
 
   return (
     <main className="shop-page">
+      <DemoCatalogueBanner dictionary={dictionary} />
       <div className="shop-page__intro">
         <p className="eyebrow">{dictionary.shopPage.eyebrow}</p>
         <h1>{dictionary.shopPage.title}</h1>

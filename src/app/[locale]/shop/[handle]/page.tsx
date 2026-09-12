@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { DemoCatalogueBanner, isDemoCatalogueEnvironment } from "@/components/shop/DemoCatalogueBanner";
 import { ProductDetail } from "@/components/product/ProductDetail";
 import { dictionaries, isLocale, localePath, type Locale } from "@/i18n";
 import { getCommerceProvider } from "@/lib/commerce";
@@ -38,6 +39,8 @@ export async function generateMetadata({ params, searchParams }: ProductPageProp
       description: seoDescription,
       images: product.images.slice(0, 1).map((image) => ({ url: image.src })),
     },
+    // Demo products should never be indexed as if they were Daniele's real catalogue.
+    robots: isDemoCatalogueEnvironment() ? { index: false, follow: false } : undefined,
   };
 }
 
@@ -77,6 +80,7 @@ export default async function ProductPage({ params, searchParams }: ProductPageP
     <main className="product-page">
       {/* Structured data uses only verified fields already on the product record — no invented facts. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <DemoCatalogueBanner dictionary={dictionary} />
       <ProductDetail
         product={product}
         locale={locale}
