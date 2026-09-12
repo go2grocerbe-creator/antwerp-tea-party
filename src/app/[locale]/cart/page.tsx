@@ -4,7 +4,8 @@ import Link from "next/link";
 import { CartLineItem } from "@/components/cart/CartLineItem";
 import { formatPrice } from "@/lib/format";
 import { dictionaries, isLocale, localePath, type Locale } from "@/i18n";
-import { getCheckoutUrlForCurrentCart, getCurrentCartSummary } from "@/lib/commerce/actions";
+import { getCurrentCartSummary } from "@/lib/commerce/actions";
+import { isCheckoutAvailable } from "@/lib/stripe/config";
 
 type CartPageProps = { params: Promise<{ locale: string }> };
 
@@ -22,7 +23,7 @@ export default async function CartPage({ params }: CartPageProps) {
   const dictionary = dictionaries[locale];
 
   const { resolvedLines, subtotal, currency } = await getCurrentCartSummary();
-  const checkoutUrl = resolvedLines.length > 0 ? await getCheckoutUrlForCurrentCart() : null;
+  const checkoutAvailable = resolvedLines.length > 0 && isCheckoutAvailable();
 
   return (
     <main className="cart-page">
@@ -59,10 +60,10 @@ export default async function CartPage({ params }: CartPageProps) {
             </div>
             <p className="cart-summary__note">{dictionary.cartPage.subtotalNote}</p>
 
-            {checkoutUrl ? (
-              <a className="button" href={checkoutUrl}>
+            {checkoutAvailable ? (
+              <Link className="button" href={localePath(locale, "/checkout")}>
                 {dictionary.cartPage.checkout}
-              </a>
+              </Link>
             ) : (
               <div className="checkout-unavailable" role="status">
                 <strong>{dictionary.cartPage.checkoutUnavailableTitle}</strong>

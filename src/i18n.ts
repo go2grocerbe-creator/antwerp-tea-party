@@ -100,6 +100,7 @@ export const dictionaries = {
       inStock: "In stock",
       lowStock: "Low stock",
       outOfStock: "Out of stock",
+      demoBanner: "Demo catalogue — product details and prices require shop approval.",
     },
     productPage: {
       backToShop: "Back to shop",
@@ -134,6 +135,16 @@ export const dictionaries = {
       checkoutUnavailableBody:
         "Online payment is not live yet. This cart shows the full purchase flow up to checkout; contact the shop directly to complete an order for now.",
       continueShopping: "Continue shopping",
+    },
+    checkoutPage: {
+      title: "Secure checkout",
+      backToCart: "Back to cart",
+      loadError: "Checkout could not be started. Please try again or contact the shop.",
+      successTitle: "Thank you — your order is confirmed.",
+      successBody: "You'll receive a confirmation by email. Contact the shop directly for any questions about your order.",
+      incompleteTitle: "Payment was not completed",
+      incompleteBody: "Your order was not placed. You can return to your cart and try again.",
+      backToShop: "Back to shop",
     },
   },
   nl: {
@@ -224,6 +235,7 @@ export const dictionaries = {
       inStock: "Op voorraad",
       lowStock: "Beperkte voorraad",
       outOfStock: "Niet op voorraad",
+      demoBanner: "Democatalogus — productgegevens en prijzen vereisen goedkeuring van de winkel.",
     },
     productPage: {
       backToShop: "Terug naar de winkel",
@@ -258,6 +270,16 @@ export const dictionaries = {
       checkoutUnavailableBody:
         "Online betalen is nog niet actief. Dit winkelmandje toont de volledige aankoopstroom tot aan het afrekenen; neem voorlopig rechtstreeks contact op met de winkel om een bestelling af te ronden.",
       continueShopping: "Verder winkelen",
+    },
+    checkoutPage: {
+      title: "Veilig afrekenen",
+      backToCart: "Terug naar winkelmandje",
+      loadError: "Afrekenen kon niet worden gestart. Probeer het opnieuw of neem contact op met de winkel.",
+      successTitle: "Bedankt — uw bestelling is bevestigd.",
+      successBody: "U ontvangt een bevestiging per e-mail. Neem rechtstreeks contact op met de winkel bij vragen over uw bestelling.",
+      incompleteTitle: "Betaling niet voltooid",
+      incompleteBody: "Uw bestelling is niet geplaatst. U kunt terug naar uw winkelmandje en het opnieuw proberen.",
+      backToShop: "Terug naar de winkel",
     },
   },
   fr: {
@@ -348,6 +370,7 @@ export const dictionaries = {
       inStock: "En stock",
       lowStock: "Stock limité",
       outOfStock: "Rupture de stock",
+      demoBanner: "Catalogue de démonstration — les informations produit et les prix nécessitent l'approbation de la boutique.",
     },
     productPage: {
       backToShop: "Retour à la boutique",
@@ -382,6 +405,16 @@ export const dictionaries = {
       checkoutUnavailableBody:
         "Le paiement en ligne n'est pas encore actif. Ce panier montre le parcours d'achat complet jusqu'au paiement ; contactez directement la boutique pour finaliser une commande pour le moment.",
       continueShopping: "Continuer mes achats",
+    },
+    checkoutPage: {
+      title: "Paiement sécurisé",
+      backToCart: "Retour au panier",
+      loadError: "Impossible de démarrer le paiement. Veuillez réessayer ou contacter la boutique.",
+      successTitle: "Merci — votre commande est confirmée.",
+      successBody: "Vous recevrez une confirmation par e-mail. Contactez directement la boutique pour toute question concernant votre commande.",
+      incompleteTitle: "Paiement non finalisé",
+      incompleteBody: "Votre commande n'a pas été passée. Vous pouvez retourner à votre panier et réessayer.",
+      backToShop: "Retour à la boutique",
     },
   },
 } as const;
