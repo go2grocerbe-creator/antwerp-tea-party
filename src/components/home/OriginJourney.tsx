@@ -46,6 +46,73 @@ function TinCanister({ className = "" }: { className?: string }) {
   );
 }
 
+/**
+ * Mobile (<=768px) replacement for the pinned desktop journey. Plain document flow, no GSAP,
+ * no pin - each stage takes only the height its content needs. See docs/audits/mobile-audit.md
+ * for why the pinned version was replaced rather than just shortened further.
+ */
+function MobileJourney({
+  locale,
+  dictionary,
+  origins,
+}: {
+  locale: Locale;
+  dictionary: Dictionary;
+  origins: ReturnType<typeof getOrigins>;
+}) {
+  return (
+    <div className="journey-mobile journey-mobile-only">
+      <div className="journey-mobile__stage journey-mobile__intro reveal">
+        <p className="eyebrow">{dictionary.hero.eyebrow}</p>
+        <h1>{dictionary.hero.headline}</h1>
+        <div className="journey-mobile__image journey-mobile__image--cup">
+          <Image src={homeAssets.isolatedCupLeaves.src} alt="" fill priority sizes="70vw" />
+        </div>
+      </div>
+
+      <div className="journey-mobile__stage">
+        <p className="journey-mobile__statement">{dictionary.hero.body}</p>
+      </div>
+
+      <div className="journey-mobile__stage">
+        <div className="journey-mobile__image journey-mobile__image--leaf">
+          <Image src={homeAssets.isolatedSingleLeaf.src} alt="" fill sizes="45vw" />
+        </div>
+        <p className="journey-mobile__caption">{dictionary.journey.originsLabel}</p>
+        <ul className="journey-mobile__origins" aria-label={dictionary.journey.originsLabel}>
+          {origins.map((origin) => (
+            <li key={origin.name}>{origin.name}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="journey-mobile__stage">
+        <div className="journey-mobile__image journey-mobile__image--tin">
+          <Image src={homeAssets.isolatedTinOpen.src} alt="" fill sizes="60vw" />
+        </div>
+        <h2>{dictionary.journey.tinTitle}</h2>
+        <p>{dictionary.journey.tinBody}</p>
+      </div>
+
+      <div className="journey-mobile__stage journey-mobile__shop">
+        <div className="journey-mobile__image journey-mobile__image--shop">
+          <Image
+            src={homeAssets.journeyShelf.src}
+            alt={homeAssets.journeyShelf.alt}
+            fill
+            sizes="(max-width: 900px) 90vw, 100vw"
+          />
+        </div>
+        <h2>{dictionary.journey.shelfTitle}</h2>
+        <p>{dictionary.journey.shelfBody}</p>
+        <a className="button" href={localePath(locale, "/shop")}>
+          {dictionary.journey.shelfCta}
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export function OriginJourney({ locale, dictionary }: { locale: Locale; dictionary: Dictionary }) {
   const sectionRef = useRef<HTMLElement>(null);
   const origins = getOrigins(locale);
@@ -142,54 +209,11 @@ export function OriginJourney({ locale, dictionary }: { locale: Locale; dictiona
           .fromTo(".shelf-copy", { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 1.08);
       });
 
-      mm.add("(max-width: 768px)", () => {
-        const mobileLeaves = journeyLeaves.slice(0, 4);
-        const hiddenLeaves = journeyLeaves.slice(4);
-        gsap.set(hiddenLeaves, { display: "none" });
-
-        const timeline = gsap.timeline({
-          defaults: { ease: "power2.out" },
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            // Shorter than the desktop pin (+=560%): mobile users scroll less to see the
-            // same story, so the sequence doesn't trap them in an excessive scroll distance.
-            end: "+=300%",
-            scrub: 0.85,
-            pin: true,
-          },
-        });
-
-        timeline
-          .fromTo(".hero-cup", { autoAlpha: 1, y: 0, scale: 1 }, { autoAlpha: 1, y: -6, scale: 1.012, duration: 0.1 }, 0)
-          .to(".hero-scroll-cue", { autoAlpha: 0, y: 16, duration: 0.08 }, 0.08)
-          .to(".hero-cup", { autoAlpha: 0, y: -42, scale: 0.9, duration: 0.12 }, 0.13)
-          .fromTo(".teapot-layer", { autoAlpha: 0, y: 30, scale: 0.96 }, { autoAlpha: 1, y: 0, scale: 1, duration: 0.14 }, 0.16)
-          .fromTo(".teapot-steam-line", { autoAlpha: 0, y: 20, scaleY: 0.74 }, { autoAlpha: 0.5, y: 0, scaleY: 1, stagger: 0.02, duration: 0.14 }, 0.2)
-          .to(".teapot-layer", { autoAlpha: 0, y: -28, scale: 0.96, duration: 0.12 }, 0.32)
-          .fromTo(mobileLeaves, { autoAlpha: 0, scale: 0.54 }, { autoAlpha: 1, scale: 0.74, stagger: 0.03, duration: 0.1 }, 0.34)
-          .to(".leaf-a", { x: -48, y: -34, rotate: -18, scale: 0.72, duration: 0.12 }, 0.36)
-          .to(".leaf-b", { x: 48, y: -24, rotate: 14, scale: 0.68, duration: 0.12 }, 0.36)
-          .to(".leaf-c", { x: -46, y: 56, rotate: 20, scale: 0.66, duration: 0.12 }, 0.36)
-          .to(".leaf-d", { x: 52, y: 62, rotate: -22, scale: 0.68, duration: 0.12 }, 0.36)
-          .to(".origin-title", { autoAlpha: 0, y: -18, duration: 0.1 }, 0.42)
-          .fromTo(".origin-map", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.44)
-          .fromTo(labels.slice(0, 4), { autoAlpha: 0, y: 8 }, { autoAlpha: 0.9, y: 0, stagger: 0.02, duration: 0.12 }, 0.45)
-          .to(".leaf-a", { x: "-30vw", y: "-12vh", scale: 0.34, rotate: -28, duration: 0.16 }, 0.46)
-          .to(".leaf-b", { x: "28vw", y: "-10vh", scale: 0.34, rotate: 24, duration: 0.16 }, 0.46)
-          .to(".leaf-c", { x: "-28vw", y: "13vh", scale: 0.32, rotate: 30, duration: 0.16 }, 0.46)
-          .to(".leaf-d", { x: "28vw", y: "12vh", scale: 0.32, rotate: -30, duration: 0.16 }, 0.46)
-          .to(labels, { autoAlpha: 0, duration: 0.08 }, 0.64)
-          .to(".origin-map", { autoAlpha: 0, duration: 0.1 }, 0.66)
-          .to(mobileLeaves, { x: 0, y: "22vh", rotate: 7, scale: 0.45, stagger: 0.012, duration: 0.14 }, 0.68)
-          .fromTo(".storage-tin", { autoAlpha: 0, y: "14vh", scale: 0.82 }, { autoAlpha: 1, y: "2vh", scale: 0.88, duration: 0.14 }, 0.74)
-          .to(mobileLeaves, { autoAlpha: 0, y: "32vh", scale: 0.18, stagger: 0.01, duration: 0.1 }, 0.82)
-          .fromTo(".tin-copy", { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.88)
-          .to(".tin-copy", { autoAlpha: 0, y: -10, duration: 0.08 }, 0.96)
-          .fromTo(".shelf-reveal", { autoAlpha: 0, scale: 1.08 }, { autoAlpha: 1, scale: 1, duration: 0.16 }, 0.98)
-          .to(".storage-tin", { scale: 0.25, y: "-7vh", autoAlpha: 0, duration: 0.12 }, 1)
-          .fromTo(".shelf-copy", { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.08 }, 1.08);
-      });
+      // Below 769px the pinned/scrubbed sequence is replaced entirely by .journey-mobile, a
+      // plain-flow section with no GSAP and no pin (see the JSX below) - a pinned scrub on a
+      // narrow screen produced a long stalled/blank scroll and overlapping artwork. GSAP here
+      // only ever touches the desktop tree's classes, so nothing needs to be reverted for
+      // mobile.
 
       return () => mm.revert();
     }, section);
@@ -198,8 +222,10 @@ export function OriginJourney({ locale, dictionary }: { locale: Locale; dictiona
   }, []);
 
   return (
-    <section className="origin-journey" id="top" ref={sectionRef} aria-labelledby="home-title">
-      <div className="origin-journey__stage">
+    <section className="origin-journey" id="top" ref={sectionRef}>
+      <MobileJourney locale={locale} dictionary={dictionary} origins={origins} />
+
+      <div className="origin-journey__stage journey-desktop-only" aria-labelledby="home-title">
         <div className="origin-title">
           <p className="eyebrow">{dictionary.hero.eyebrow}</p>
           <h1 id="home-title">{dictionary.hero.headline}</h1>
