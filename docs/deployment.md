@@ -39,10 +39,26 @@ Environment Variables settings for the relevant environment (Preview/Production)
 
 - `COMMERCE_PREVIEW_TOKEN` — only if you want draft-preview mode reachable on the preview URL
   too (recommended for Preview, should stay **unset** for Production once real products exist).
-- `SHOPIFY_STORE_DOMAIN`, `SHOPIFY_STOREFRONT_API_TOKEN`, `SHOPIFY_STOREFRONT_API_VERSION` —
-  once a Shopify backend is connected (see `docs/commerce-architecture.md`). Not needed yet.
+- `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` —
+  once a Supabase project is connected (see `docs/commerce-architecture.md`). Not set yet — no
+  project exists. Setting these switches the storefront from the seed/demo provider to Supabase
+  automatically.
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` — once a
+  Stripe account is connected. Not set yet. `STRIPE_WEBHOOK_SECRET` must match whatever webhook
+  endpoint is configured to point at `<deployment-url>/api/webhooks/stripe` for that specific
+  environment (Preview and Production typically need separate Stripe webhook endpoints, since
+  they have different URLs).
+- `NEXT_PUBLIC_SITE_URL` — set to the deployment's actual URL once one exists; used to build the
+  Stripe Checkout return URL.
 
 `VERCEL_OIDC_TOKEN` is managed by Vercel itself — don't set it by hand.
+
+## Database migrations
+
+`supabase/migrations/0001_init.sql` and `0002_orders.sql` are not applied automatically by a
+Vercel deploy — run them against the Supabase project directly (SQL editor, or
+`supabase db push` with the CLI linked) before or as part of connecting Supabase. See
+`docs/commerce-architecture.md`.
 
 ## Build command
 
