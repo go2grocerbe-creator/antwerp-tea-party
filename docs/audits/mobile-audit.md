@@ -49,7 +49,7 @@ Severity: P0 blocks use/checkout, P1 materially damages experience, P2 polish/ma
   add-to-cart/quantity-update/checkout-blocked-message/remove/empty-state; 2 desktop: 404 for
   unknown handle, draft products never public). See `docs/testing-plan.md`.
 
-## Not verified (needs a human or a fuller visual pass)
+## Not verified (needs a human or a fuller visual pass) — as of the first pass
 
 - The full 10-viewport list in the brief (only 390×844 and 1280×800 were driven).
 - iOS Safari-specific behavior (safe-area insets, address-bar viewport resize) — this session's
@@ -57,3 +57,81 @@ Severity: P0 blocks use/checkout, P1 materially damages experience, P2 polish/ma
 - Whether the shortened mobile GSAP scroll distance (`+=300%`) *feels* right — that's a judgment
   call best made by looking at it, ideally with Daniele's real photography in place.
 - Lighthouse/Core Web Vitals numbers — not run this session.
+
+---
+
+# Round 2 — Visual Correction (2026-09-12, same day)
+
+The first pass's "shorten the pin" fix (`+=450%` → `+=300%`) was **not adequate** — it was still
+a pinned/scrubbed animation, which on a static viewport produces a long blank scroll region
+(content that's only visible via scroll-linked animation renders as empty space when the
+animation itself hasn't run). Confirmed via real Chromium screenshots at this session's start,
+taken with Playwright and inspected directly (not just overflow assertions).
+
+## Method this round
+
+Installed Chromium via Playwright (already present from the first pass), wrote a throwaway
+full-page screenshot script (`node .scratch-screenshot.js`, deleted before each commit — not part
+of the repo), and **visually read every screenshot** rather than relying only on automated
+assertions, per this round's explicit instruction. Verified via `npx tsc --noEmit`, `npm run
+lint`, `npm run build`, and the full `npx playwright test` suite after each change.
+
+## Before (confirmed via screenshot at 375×667, 390×844, 320×568)
+
+- **Origin journey:** roughly 1/3 of the total page height was blank white space directly under
+  the hero, before the shop-interior photo section — the pinned scroll spacer with no visible
+  content (leaf/tin/shelf stages default to `opacity: 0`, only revealed by the scroll-linked
+  GSAP timeline, which a static screenshot doesn't execute).
+- **Tea-table section:** the chair illustration (`isolatedChair`) rendered directly on top of
+  the "Sommige thee smaakt beter samen." headline — both elements shared `grid-row: 1` /
+  `grid-column: 1` on the same single-column mobile grid, with only a `margin-bottom: 260px`
+  hack (unreliable across heading lengths) attempting to keep them apart.
+
+## What changed
+
+1. **`OriginJourney.tsx` / `globals.css`** — mobile (<769/901px, see below) now renders a
+   completely separate `MobileJourney` component: plain document flow, no GSAP, six stacked
+   stages (headline+cup image, short origin statement, leaf+origin chips, tin image, "Preserved
+   with care" text directly below the tin image with no overlap, shop photo+CTA linking to
+   `/shop`). Desktop's pinned `+=560%` timeline is completely untouched — verified via a
+   1280×800 screenshot showing the same composition as before this round. The mobile/desktop
+   split breakpoint was unified to 901px (previously an inconsistent mix of 768px in the GSAP
+   `matchMedia` calls and 900px in the CSS media queries).
+2. **`TeaTableSection` mobile CSS** — `.tea-table` switched to `display: flex; flex-direction:
+   column`, `.tea-table__copy` at `order: 1`, `.tea-table__chair` at `order: 2`, chair rendered
+   as its own contained box (fixed aspect-ratio, `width: min(74vw, 300px)`, margin-centered)
+   below the CTA buttons. No JSX changes — same markup, order is CSS-only, so desktop's
+   overlapping grid composition (restored at ≥901px) is unaffected.
+3. **`.site-header` mobile padding** tightened slightly (16px → 12px, `align-items: center`
+   instead of `flex-start`) now that `.site-nav` no longer needs wrap allowance below 900px (it
+   was already replaced by the drawer in the first pass).
+4. Fixed an `Image` `sizes` prop dev warning on the new mobile shop-stage image
+   (`100vw` → `(max-width: 900px) 90vw, 100vw`, matching its actual rendered width).
+
+## After — screenshots taken and visually inspected (not just overflow-asserted)
+
+- **320×568, 375×667, 390×844, 414×896, 430×932, 768×1024, 1280×800**: no horizontal overflow
+  (`scrollWidth === clientWidth` at every width, confirmed via `page.evaluate`), no blank gap
+  after the hero, no headline/artwork overlap anywhere.
+- **Tea-table specifically**: initially *looked* like the chair had disappeared in the
+  full-page screenshot — it's a small (~280×209px) image on a near-white background, easy to
+  miss in a heavily downscaled thumbnail. Re-verified with a full-resolution, element-scoped
+  screenshot (`locator('.tea-table').screenshot()`) plus `boundingBox()`/`isVisible()` checks:
+  the chair renders correctly, fully visible, cleanly below the CTA row, no overlap.
+- **Header at 320px** (dedicated crop + screenshot): wordmark readable on two lines, cart icon +
+  language dropdown + menu button fit with clear spacing, all comfortably ≥44px targets.
+- **Desktop 1280×800**: re-confirmed unchanged — pinned journey (still shows a static screenshot
+  as a mostly-blank scroll spacer, which is *expected and correct* for a scroll-scrubbed
+  animation captured at scroll position 0, not a regression) and the tea-table's overlapping
+  grid composition both intact.
+- `npx playwright test`: full suite (8 tests across both spec files by this point in the
+  session, see `docs/testing-plan.md`) passing, including the mobile drawer/no-overflow
+  assertions on the actual rendered page.
+
+## Still not verified
+
+- 414×896 and 430×932 were captured but only spot-checked (not read screenshot-by-screenshot to
+  the same depth as 320/375/390/768/1280) — worth a final pass before this branch is presented.
+- iOS Safari-specific rendering — this session used Chromium only throughout.
+- Whether the mobile journey's six-stage pacing *reads well* with Daniele's real photography —
+  current images are the pre-existing placeholder/demo assets.

@@ -1,85 +1,117 @@
 # Handover
 
-Branch: `feat/mobile-commerce-v1` (based on `main` @ `61ca89d`, up to date with
-`origin/main` at time of branching — nothing was force-pushed or rebased).
+Branch: `feat/mobile-commerce-v1` (based on `main` @ `61ca89d`). PR:
+https://github.com/go2grocerbe-creator/antwerp-tea-party/pull/1 (not merged).
 
 Read `docs/architecture.md`, `docs/commerce-architecture.md`, and `docs/product-model.md`
-first — this file is the status summary, those are the reference.
+first — this file is the status summary, those are the reference. This is the **second pass**
+on this branch; the first pass's summary is preserved below under "First pass," with this
+section covering what changed since.
 
-## Completed
+## Second pass — completed (2026-09-12)
 
-- Repository safety: worked on a dedicated branch, no destructive git operations used, no
-  uncommitted work discarded (tree was clean at start).
-- Mobile navigation rebuilt: accessible drawer (dialog role, Escape, focus trap, focus return,
-  scroll lock, 44px touch targets) replacing the horizontally-scrolling bar.
-- Mobile GSAP "tea journey" scroll distance shortened (`+=450%` → `+=300%`); desktop journey
-  untouched; pre-existing reduced-motion fallback verified intact.
-- Typed, swappable commerce provider interface + seed/draft data (five clearly-labeled draft
-  placeholder teas, all `status: "draft"`, never publicly visible).
-- Full shop → product → cart flow built and working: `/shop`, `/shop/[handle]`, `/cart`,
-  quantity editing, line removal, server-authoritative pricing, empty/error/not-found states,
-  draft-preview mode for QA.
-- Multilingual: `shopPage`/`productPage`/`cartPage` dictionary sections added for en/nl/fr,
-  same structural shape enforced by TypeScript across all three.
-- SEO basics on the product page: per-locale canonical + OG metadata, `Product` JSON-LD built
-  only from fields already on the record (no invented facts).
-- Security: `next`/`eslint-config-next` upgraded to patch a critical RCE advisory; `npm audit`
-  clean; no secrets committed; `.env.example` has names only.
-- Testing: Playwright E2E installed and a real suite added and passing (`npm run test:e2e`) —
-  see `docs/testing-plan.md` for exactly what it covers and what it doesn't.
-- `npm run check` (lint + typecheck + build) passes clean.
-- Documentation: this file plus `docs/architecture.md`, `docs/commerce-architecture.md`,
-  `docs/product-model.md`, `docs/content-intake-template.md`, `docs/testing-plan.md`,
-  `docs/deployment.md`, `docs/decision-log.md`, `docs/audits/mobile-audit.md`, `.env.example`.
+- **Mobile visual redesign** (the primary ask this round — the first pass's fix was judged
+  inadequate on inspection): removed GSAP pinning from the mobile tea journey entirely, replaced
+  with a plain-document-flow six-stage sequence; rebuilt the tea-table section to stop
+  overlapping the chair illustration with the headline; unified the mobile/desktop CSS
+  breakpoint to 901px. Verified by visually reading real Chromium screenshots (not just
+  automated overflow assertions) at 320/375/390/414/430/768/1280px — see
+  `docs/audits/mobile-audit.md` "Round 2" for the before/after detail.
+- **Five generic demo teas**, published (not draft), with a `<DemoCatalogueBanner>` shown on
+  every environment except real production and `noindex` metadata — visible on a Vercel preview
+  without a secret token, per the brief. See `docs/product-model.md` "Demo catalogue vs. real
+  data."
+- **Architecture pivot**: replaced the Shopify recommendation with Next.js + Supabase
+  (Postgres/Auth/Storage/RLS) + custom `/admin` + Stripe, per explicit owner direction. See
+  `docs/commerce-architecture.md` and `docs/decision-log.md` DEC-T11.
+- **Supabase product-admin foundation**: migrations (`supabase/migrations/0001_init.sql`,
+  `0002_orders.sql`), typed service layer + Zod validation (`src/lib/admin/`), Auth-gated
+  `/admin` UI (sign in, list, add/edit with EN/NL/FR fields, variants, images-by-URL,
+  publish/unpublish/archive). A `supabaseCommerceProvider` implementing the same
+  `CommerceProvider` interface is wired in and auto-activates once Supabase env vars are set —
+  no other code changes needed.
+- **Stripe Embedded Checkout prepared**: `/checkout` page, `/api/checkout/session` (server-side
+  price re-resolution, never trusts the client), `/api/webhooks/stripe` (signature-verified,
+  only place an order is ever created), `/checkout/return` (reads status back, creates nothing).
+  Cart shows a real checkout link only when both Stripe keys are configured; otherwise the same
+  honest "not connected yet" message as before.
+- Fixed a real bug found while building the above: the language switcher always linked to the
+  plain locale homepage, losing the current page — now preserves it.
+- Fixed a defensive gap: two admin data-fetching functions could throw an unhandled error (loud
+  console noise, though the auth redirect still won the actual HTTP response) when Supabase
+  isn't configured, due to Next possibly rendering a protected page's data fetch concurrently
+  with its layout's auth check — now they degrade to an empty result instead.
+- Expanded `npx playwright test` from 3 to 8 passing tests: locale-switch preservation, all-
+  five-teas-public, Supabase-not-configured fallback, checkout-not-configured fallback, webhook
+  signature rejection — see `docs/testing-plan.md`.
+- `npm run check` (lint + typecheck + build) clean throughout; `npm audit` still 0
+  vulnerabilities after adding `@supabase/*`, `zod`, `stripe`, `@stripe/*`.
 
-## Verified
+## Second pass — verified
 
-- `npm run lint`, `npm run typecheck`, `npm run build` — all clean on this branch.
-- `npm audit` — 0 vulnerabilities.
-- `npx playwright test` — 3/3 passing (mobile customer journey; desktop 404; draft-privacy).
-- Manual route smoke test via `curl` for every new route, both with and without preview mode.
+- `npm run lint`, `npm run typecheck`, `npm run build` — clean.
+- `npx playwright test` — 8/8 passing (mobile + desktop projects).
+- Manual `curl` smoke test of every route including the new `/checkout`, `/checkout/return`,
+  `/admin/*`, `/api/checkout/session`, `/api/webhooks/stripe`.
+- Real Chromium screenshots inspected visually for the mobile redesign (see audit doc).
 
-## Blocked (needs the owner and/or credentials — cannot be completed by more coding alone)
+## Second pass — blocked (needs the owner and/or credentials)
 
-- **Real product data.** No real tea names, prices, ingredients, origins, or stock exist
-  anywhere in the repo, `Reference Documents/Photos`, or the Obsidian project memory. See
-  `docs/content-intake-template.md`. Nothing can be published until this is provided and
-  approved by Daniele.
-- **Commerce backend decision + credentials.** Shopify (recommended) vs. alternatives — see
-  `docs/commerce-architecture.md`. No Shopify account exists yet.
-- **Payment provider decision + credentials.** Worldline ecommerce compatibility is unconfirmed
-  (per `DISCOVERY_FINDINGS.md`). Real checkout cannot exist until this is resolved.
-- **Legal verification** of the returns policy and ingredient/allergen labeling requirements
-  before any of that copy is published (see `docs/content-intake-template.md`).
-- **Opening hours, phone, email, Instagram handle** — still placeholders in `src/data/site.ts`
-  and `src/i18n.ts` footer strings; unchanged in this session per the project's rule against
-  inventing business facts.
-- **Domain/Wix decision** — out of scope for this branch entirely; untouched.
+Everything from the first pass, plus:
 
-## Not done, not blocked — genuine gaps to pick up next
+- **Supabase project + credentials.** No project exists. Migrations are written but
+  **untested against a live database** — review them before running against anything real. See
+  `docs/commerce-architecture.md` "What connecting Supabase actually requires" for the exact
+  sequence, including creating the first admin user.
+- **Stripe account + test-mode credentials.** No account exists. The integration is built
+  end-to-end (Embedded Checkout, webhook, order persistence) but **entirely unexercised against
+  real Stripe** — no test payment has been run. See "What connecting Stripe actually requires"
+  in the same doc.
+- Once both are connected: run the manual operator-acceptance journey and the manual
+  Stripe-test-card checkout journey described in `docs/testing-plan.md`, and only then consider
+  either "verified."
 
-- Visual/manual review across the full 10-viewport list in the brief (only 390×844 and
-  1280×800 were driven by Playwright this session) — see `docs/audits/mobile-audit.md`.
-- Language-switcher locale change isn't exercised by the E2E suite yet.
-- Variant selector UI exists but has no seed product with 2+ variants to test against
-  meaningfully.
-- No negative-path tests yet for: invalid/tampered variant id, out-of-stock product (no seed
-  product currently has that stock status), missing image, JS/network delay.
-- No Lighthouse/Core Web Vitals pass was run.
-- Preview deployment to Vercel was not run this session (see `docs/deployment.md` for the exact
-  command — the project is already linked, this agent didn't have Vercel CLI auth available).
+## Second pass — not done, not blocked — genuine gaps to pick up next
+
+- Supabase Storage-backed image upload from the admin form (currently a URL/path text field,
+  not a file picker) — the bucket + RLS policies exist in the migration, the UI doesn't use them
+  yet.
+- No admin order-list view — `orders`/`order_items` tables and RLS exist, nothing in `/admin`
+  reads them yet.
+- No sixth *draft* product exists to exercise the real publish/unpublish/archive journey against
+  (all five current products are published) — add one once Supabase is connected, or a throwaway
+  one to the seed data for local testing.
+- 414×896/430×932 were captured but only spot-checked, not read screenshot-by-screenshot to the
+  same depth as the other widths.
+- iOS Safari-specific rendering was not checked (Chromium only, this session).
+- Preview deployment to Vercel was not run this session (see `docs/deployment.md`).
+
+## First pass — completed (2026-09-12, earlier same session)
+
+- Repository safety: dedicated branch, no destructive git operations, no uncommitted work
+  discarded.
+- Mobile navigation rebuilt: accessible drawer (dialog role, Escape, focus trap/return, scroll
+  lock, 44px touch targets) replacing a horizontally-scrolling bar.
+- Typed, swappable commerce provider interface (`CommerceProvider`).
+- Full shop → product → cart flow: `/shop`, `/shop/[handle]`, `/cart`, quantity editing, line
+  removal, server-authoritative pricing, draft-preview mode.
+- Multilingual: en/nl/fr dictionary sections for the new UI, structural shape enforced by
+  TypeScript.
+- SEO basics on the product page (canonical/OG metadata, `Product` JSON-LD from verified fields
+  only).
+- Security: `next` upgraded to patch a critical RCE advisory.
+- Testing infrastructure: Playwright installed, first 3 E2E tests added.
 
 ## Recommended next action
 
 1. Get the content-intake table (`docs/content-intake-template.md`) filled in and approved for
-   the first five teas.
-2. In parallel: decide the commerce backend (Shopify strongly recommended) and get Storefront
-   API credentials; decide the payment provider question (Worldline vs. Shopify Payments vs.
-   other).
-3. Implement the Shopify adapter behind the existing `CommerceProvider` interface — this should
-   not require touching `src/app` or `src/components`.
-4. Re-run and extend `tests/e2e/customer-journey.spec.ts` against the real backend, including
-   finally reaching a real test-mode checkout.
-5. Run the preview deployment command in `docs/deployment.md`, review it with Daniele.
-6. Only then: publish the five real products and consider production deployment (explicit
-   approval required — see the project's non-negotiable constraints).
+   the first five real teas.
+2. Create the Supabase project, run the migrations, create the first admin user — see
+   `docs/commerce-architecture.md`.
+3. Create the Stripe account (test mode), wire up the webhook, run a real test-card checkout
+   end-to-end.
+4. Replace the five demo products with real, approved data via `/admin`.
+5. Add Storage-backed image upload and an admin order list if/when they become priorities.
+6. Run the preview deployment command in `docs/deployment.md`, review it with Daniele.
+7. Only then: consider production deployment (explicit approval required — see the project's
+   non-negotiable constraints).

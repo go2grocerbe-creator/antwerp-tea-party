@@ -3,8 +3,8 @@
 Mobile-first e-commerce foundation for The Antwerp Tea Party, a specialized independent tea
 boutique in Antwerp: Next.js App Router, TypeScript, Tailwind CSS (design-token stylesheet),
 `next/image`, GSAP ScrollTrigger for the homepage scroll story, and a typed, swappable commerce
-layer (shop, product pages, cart) currently backed by seed/draft data — see
-`docs/commerce-architecture.md`.
+layer (shop, product pages, cart, Supabase-backed admin, Stripe Embedded Checkout) currently
+backed by five published generic demo teas — see `docs/commerce-architecture.md`.
 
 **Start here:** `docs/handover.md` for current status, `docs/architecture.md` for how the app
 is put together, `docs/commerce-architecture.md` for the commerce layer and what's still
@@ -17,10 +17,10 @@ npm install
 npm run dev
 ```
 
-Copy `.env.example` to `.env.local` and fill in what you need — `COMMERCE_PREVIEW_TOKEN` lets
-you view/QA the draft seed products at `/nl/shop?preview=<token>` (see
-`docs/commerce-architecture.md` "Draft-preview mode"). Everything else in `.env.example` is not
-wired up yet (no commerce backend is connected).
+Copy `.env.example` to `.env.local` and fill in what you need. The five demo teas are visible at
+`/nl/shop` with no configuration. `COMMERCE_PREVIEW_TOKEN` is only needed to review a future
+*draft* product before publishing. Supabase/Stripe variables activate the admin (`/admin`) and
+real checkout (`/checkout`) once those projects exist — see `docs/commerce-architecture.md`.
 
 ## Checks
 
@@ -67,19 +67,30 @@ src/data/assets.ts
 
 Unverified details are marked with TODO comments in the data files and summarized in `DEMO_NOTES.md`.
 
-## Commerce (shop / product / cart)
+## Commerce (shop / product / cart / admin / checkout)
 
 ```text
-src/lib/commerce/        typed CommerceProvider interface, seed/draft data, cart server actions
-src/app/[locale]/shop/    shop grid + product detail routes
-src/app/[locale]/cart/    cart route
-src/components/shop/      ProductCard, ProductGrid
-src/components/product/   ProductDetail
-src/components/cart/      CartLineItem
+src/lib/commerce/          typed CommerceProvider interface, seed/demo data, cart server actions
+src/lib/supabase/           Supabase client helpers, admin auth
+src/lib/admin/               Zod schema + service layer for the admin product form
+src/lib/stripe/               Stripe config/client helpers
+src/app/[locale]/shop/       shop grid + product detail routes
+src/app/[locale]/cart/       cart route
+src/app/[locale]/checkout/    Stripe Embedded Checkout + return page
+src/app/admin/                 protected product-admin UI (Supabase Auth)
+src/app/api/checkout/session/  creates a Stripe Checkout Session server-side
+src/app/api/webhooks/stripe/   verifies Stripe events, creates orders
+supabase/migrations/            schema + RLS (untested against a live project — see docs/handover.md)
+src/components/shop/           ProductCard, ProductGrid, DemoCatalogueBanner
+src/components/product/        ProductDetail
+src/components/cart/           CartLineItem
+src/components/admin/          ProductForm
+src/components/checkout/       EmbeddedCheckoutClient
 ```
 
-No real product data or commerce backend is connected yet — see `docs/commerce-architecture.md`
-and `docs/content-intake-template.md`.
+Five generic demo teas are published (see `docs/product-model.md`), but no Supabase project or
+Stripe account is connected — see `docs/commerce-architecture.md` and
+`docs/content-intake-template.md`.
 
 ## Animation
 

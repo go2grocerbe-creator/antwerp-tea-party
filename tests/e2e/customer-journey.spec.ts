@@ -1,10 +1,9 @@
 import { test, expect } from "@playwright/test";
 
 // Required customer journey (see docs/testing-plan.md and the project brief, Phase 7).
-// Runs against the seed commerce provider with preview mode enabled (see
-// docs/commerce-architecture.md) so the draft placeholder teas are visible — this does not
-// reflect what an ordinary visitor sees, since draft products are never public.
-const PREVIEW = "e2e-preview-token";
+// The five seed products (src/lib/commerce/seed-data.ts) are published generic demo teas, so
+// this suite exercises them directly - no preview token needed to see them (that mechanism
+// still exists for a future real draft product, see docs/commerce-architecture.md).
 
 test.describe("customer purchase journey", () => {
   test("mobile: navigate, add a tea to cart, edit quantity, remove, reach cart summary", async ({
@@ -12,7 +11,7 @@ test.describe("customer purchase journey", () => {
   }, testInfo) => {
     test.skip(testInfo.project.name !== "mobile", "mobile viewport/drawer only");
     await page.goto("/nl");
-    await expect(page.locator("h1")).toBeVisible();
+    await expect(page.locator("h1:visible").first()).toBeVisible();
 
     // No horizontal overflow on the homepage at this viewport.
     const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
@@ -30,26 +29,29 @@ test.describe("customer purchase journey", () => {
     await expect(dialog).toBeHidden();
     await expect(menuButton).toBeFocused();
 
-    // Go to the shop (preview mode, so the draft seed teas are visible for this test only).
-    await page.goto(`/nl/shop?preview=${PREVIEW}`);
-    await expect(page.getByText(/Tea 01/)).toBeVisible();
+    // Go to the shop - published demo products, no preview token needed.
+    await page.goto("/nl/shop");
+    await expect(page.getByText("Earl Grey Classic")).toBeVisible();
+    await expect(page.getByText(/Democatalogus/)).toBeVisible();
 
     const shopScrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
     const shopClientWidth = await page.evaluate(() => document.documentElement.clientWidth);
     expect(shopScrollWidth).toBeLessThanOrEqual(shopClientWidth + 1);
 
-    // Open a product, add it to the cart.
-    await page.getByRole("link", { name: /Tea 01/ }).first().click();
-    await expect(page).toHaveURL(/\/shop\/tea-01/);
+    // Open a product, select the 100g variant, set quantity, add to cart.
+    await page.getByRole("link", { name: /Earl Grey Classic/ }).first().click();
+    await expect(page).toHaveURL(/\/shop\/earl-grey-classic/);
 
+    await page.getByRole("radio", { name: "100 g" }).check();
     await page.getByLabel(/Aantal/i).fill("2");
     await page.getByRole("button", { name: /winkelmandje/i }).click();
     await expect(page.getByText(/Toegevoegd aan winkelmandje/i)).toBeVisible();
 
-    // Cart shows the line with the right quantity.
+    // Cart shows the line with the right quantity and weight.
     await page.goto("/nl/cart");
     const cartLine = page.locator(".cart-line").first();
     await expect(cartLine).toBeVisible();
+    await expect(cartLine).toContainText("100 g");
     await expect(cartLine.locator('input[name="quantity"]')).toHaveValue("2");
 
     // Update quantity.
@@ -77,13 +79,30 @@ test.describe("customer purchase journey", () => {
     await expect(page.getByText(/niet gevonden/i)).toBeVisible();
   });
 
-  test("desktop: draft products never appear on the public shop without preview", async ({
+  test("desktop: all five demo teas are publicly visible without a preview token", async ({
     page,
   }, testInfo) => {
     test.skip(testInfo.project.name !== "desktop", "runs once, project-agnostic");
     await page.goto("/nl/shop");
-    await expect(page.getByText(/Tea 01/)).toHaveCount(0);
-    const direct = await page.goto("/nl/shop/tea-01");
-    expect(direct?.status()).toBe(404);
+    for (const title of [
+      "Earl Grey Classic",
+      "English Breakfast",
+      "Groene Sencha",
+      "Kamille Bloesem",
+      "Rooibos Vanille",
+    ]) {
+      await expect(page.getByText(title)).toBeVisible();
+    }
+  });
+
+  test("desktop: locale switch preserves the current product page", async ({
+    page,
+  }, testInfo) => {
+    test.skip(testInfo.project.name !== "desktop", "runs once, project-agnostic");
+    await page.goto("/nl/shop/earl-grey-classic");
+    await page.locator(".language-switcher summary").click();
+    await page.getByRole("link", { name: "Engels" }).click();
+    await expect(page).toHaveURL(/\/en\/shop\/earl-grey-classic/);
+    await expect(page.getByRole("heading", { name: "Earl Grey Classic" })).toBeVisible();
   });
 });
